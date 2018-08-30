@@ -1,24 +1,235 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hve-zl-9R6">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Simple Sudoku-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Simple Sudoku" id="BYZ-38-t0r" customClass="MainVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simple Sudoku" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqV-ww-6Ke">
+                                <rect key="frame" x="109.5" y="128" width="156" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jhE-Pj-sT0">
+                                <rect key="frame" x="150" y="249.5" width="75" height="168"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC1-DN-M7e">
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                        <state key="normal" title="Continue"/>
+                                        <connections>
+                                            <action selector="actionContinueButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b4F-9R-jqD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-6t-TQR">
+                                        <rect key="frame" x="0.0" y="46" width="75" height="30"/>
+                                        <state key="normal" title="New Game"/>
+                                        <connections>
+                                            <action selector="actionNewGameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QQr-0J-n2p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dlq-wM-e4E">
+                                        <rect key="frame" x="0.0" y="92" width="75" height="30"/>
+                                        <state key="normal" title="Settings"/>
+                                        <connections>
+                                            <action selector="actionSettingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CmW-k2-iPg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HD-A9-UCt">
+                                        <rect key="frame" x="0.0" y="138" width="75" height="30"/>
+                                        <state key="normal" title="About"/>
+                                        <connections>
+                                            <action selector="actionAboutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2iu-tr-han"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="qqV-ww-6Ke" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="77y-jC-t1m"/>
+                            <constraint firstItem="jhE-Pj-sT0" firstAttribute="top" relation="greaterThanOrEqual" secondItem="qqV-ww-6Ke" secondAttribute="bottom" constant="64" id="8Hu-rr-bvv"/>
+                            <constraint firstItem="jhE-Pj-sT0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9lZ-uV-quI"/>
+                            <constraint firstItem="jhE-Pj-sT0" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" priority="250" id="DmD-0o-b3T"/>
+                            <constraint firstItem="qqV-ww-6Ke" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="64" id="jrI-S3-fyl"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="06p-Ry-Gg9"/>
+                    <connections>
+                        <outlet property="outletContinueButton" destination="fC1-DN-M7e" id="Gh2-Ji-DWx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="972" y="32.833583208395808"/>
+        </scene>
+        <!--Simple Sudoku-->
+        <scene sceneID="aBr-GD-zKs">
+            <objects>
+                <viewController title="Simple Sudoku" id="hve-zl-9R6" customClass="GameBoardVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EXh-6m-DbT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tW-Aw-J7r">
+                                <rect key="frame" x="0.0" y="395" width="375" height="272"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MI7-fm-Yix">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="41"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="1"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uzE-ob-PIF">
+                                <rect key="frame" x="0.0" y="20" width="375" height="375"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="uzE-ob-PIF" secondAttribute="height" multiplier="1:1" id="dK2-cB-thA"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Z1P-to-Yse">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sudoku_cell" id="fuU-3w-mJy" customClass="SudokuCell" customModule="Simple_Sudoku" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYG-DQ-MTS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="SYG-DQ-MTS" secondAttribute="trailing" id="JZy-9s-Mnj"/>
+                                            <constraint firstAttribute="bottom" secondItem="SYG-DQ-MTS" secondAttribute="bottom" id="R7i-H0-lUH"/>
+                                            <constraint firstItem="SYG-DQ-MTS" firstAttribute="leading" secondItem="fuU-3w-mJy" secondAttribute="leading" id="Umu-zX-ZIo"/>
+                                            <constraint firstItem="SYG-DQ-MTS" firstAttribute="top" secondItem="fuU-3w-mJy" secondAttribute="top" id="dbq-WN-9bA"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="cellLabel" destination="SYG-DQ-MTS" id="VUj-3s-Bzj"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sudoku_board" translatesAutoresizingMaskIntoConstraints="NO" id="dO8-LH-JxX">
+                                <rect key="frame" x="0.0" y="20" width="375" height="375"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9O3-d0-SC6" firstAttribute="trailing" secondItem="0tW-Aw-J7r" secondAttribute="trailing" id="3f6-d4-6EI"/>
+                            <constraint firstItem="0tW-Aw-J7r" firstAttribute="leading" secondItem="9O3-d0-SC6" secondAttribute="leading" id="623-yt-Wng"/>
+                            <constraint firstItem="uzE-ob-PIF" firstAttribute="leading" secondItem="9O3-d0-SC6" secondAttribute="leading" id="HcA-Vr-Z1b"/>
+                            <constraint firstItem="dO8-LH-JxX" firstAttribute="leading" secondItem="uzE-ob-PIF" secondAttribute="leading" id="Mow-oi-XcU"/>
+                            <constraint firstItem="dO8-LH-JxX" firstAttribute="top" secondItem="uzE-ob-PIF" secondAttribute="top" id="QV8-mx-R6g"/>
+                            <constraint firstItem="9O3-d0-SC6" firstAttribute="trailing" secondItem="uzE-ob-PIF" secondAttribute="trailing" id="SZo-tT-w4u"/>
+                            <constraint firstItem="dO8-LH-JxX" firstAttribute="height" secondItem="uzE-ob-PIF" secondAttribute="height" id="U2O-hJ-tlP"/>
+                            <constraint firstItem="0tW-Aw-J7r" firstAttribute="top" secondItem="uzE-ob-PIF" secondAttribute="bottom" id="Y7u-yB-xr2"/>
+                            <constraint firstItem="dO8-LH-JxX" firstAttribute="width" secondItem="uzE-ob-PIF" secondAttribute="width" id="YJM-JA-bLr"/>
+                            <constraint firstItem="uzE-ob-PIF" firstAttribute="top" secondItem="9O3-d0-SC6" secondAttribute="top" id="viu-yr-12k"/>
+                            <constraint firstItem="9O3-d0-SC6" firstAttribute="bottom" secondItem="0tW-Aw-J7r" secondAttribute="bottom" id="w35-de-7Dk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9O3-d0-SC6"/>
+                    </view>
+                    <connections>
+                        <outlet property="gameBoardCV" destination="uzE-ob-PIF" id="KSd-aa-fqT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CJA-fh-Lxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1776.8" y="32.833583208395808"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="jwE-X5-bLh">
+            <objects>
+                <tableViewController title="Settings" id="hZw-y5-38U" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="m4a-HW-V71">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="tDB-es-4OA">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tDB-es-4OA" id="rAc-3w-G3L">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hZw-y5-38U" id="ZOX-hZ-Jz0"/>
+                            <outlet property="delegate" destination="hZw-y5-38U" id="G2D-xC-qML"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xO7-Xl-s8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1777" y="-738"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="RWA-a6-mI8">
+            <objects>
+                <viewController title="About" id="3WL-bB-BRp" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WhX-sO-ccO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uNT-j7-xho"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ca2-1g-ZWZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1778" y="828"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ePl-6G-lHO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g73-8l-LfD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="msf-rV-eqm">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8xy-24-qvr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bbr-Hy-2wE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="218" y="33"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="sudoku_board" width="682" height="682"/>
+    </resources>
 </document>
