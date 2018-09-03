@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g73-8l-LfD">
-    <device id="retina3_5" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,7 +16,7 @@
             <objects>
                 <viewController title="Simple Sudoku" id="BYZ-38-t0r" customClass="MainVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simple Sudoku" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqV-ww-6Ke">
@@ -85,11 +85,11 @@
             <objects>
                 <viewController title="Simple Sudoku" id="hve-zl-9R6" customClass="GameBoardVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EXh-6m-DbT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uzE-ob-PIF">
-                                <rect key="frame" x="29.5" y="64" width="261" height="261"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="uzE-ob-PIF" secondAttribute="width" multiplier="1:1" id="dK2-cB-thA"/>
@@ -129,22 +129,22 @@
                                 </cells>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="sudoku_board" translatesAutoresizingMaskIntoConstraints="NO" id="dO8-LH-JxX">
-                                <rect key="frame" x="29.5" y="64" width="261" height="261"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="dO8-LH-JxX" secondAttribute="width" multiplier="1:1" id="b69-gu-cLN"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tW-Aw-J7r">
-                                <rect key="frame" x="0.0" y="325" width="320" height="155"/>
+                                <rect key="frame" x="0.0" y="384" width="320" height="184"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hAw-V0-idc">
-                                        <rect key="frame" x="8" y="8" width="304" height="139"/>
+                                        <rect key="frame" x="8" y="8" width="304" height="168"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="UzW-et-QgI">
-                                                <rect key="frame" x="0.0" y="0.0" width="304" height="41"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="304" height="50.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MI7-fm-Yix" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MI7-fm-Yix" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="1"/>
                                                         <userDefinedRuntimeAttributes>
@@ -155,9 +155,12 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="JLp-T8-YPt"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fai-FO-uqP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fai-FO-uqP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="2"/>
                                                         <userDefinedRuntimeAttributes>
@@ -168,9 +171,12 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="66s-oQ-tol"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqC-wk-0AP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqC-wk-0AP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="3"/>
                                                         <userDefinedRuntimeAttributes>
@@ -181,9 +187,12 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="HYK-Ih-3Jl"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wt-Sk-eDT" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="41"/>
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="C"/>
                                                         <userDefinedRuntimeAttributes>
@@ -194,14 +203,17 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="C1L-31-BOu"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PhK-xg-ZlO">
-                                                <rect key="frame" x="0.0" y="49" width="304" height="41"/>
+                                                <rect key="frame" x="0.0" y="58.5" width="304" height="51"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFA-TV-tN8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFA-TV-tN8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="4"/>
                                                         <userDefinedRuntimeAttributes>
@@ -212,9 +224,12 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="Gzk-cp-dq3"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEJ-nw-AlB" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEJ-nw-AlB" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="5"/>
                                                         <userDefinedRuntimeAttributes>
@@ -225,9 +240,12 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="Yid-IQ-C9k"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBZ-Wg-rZl" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBZ-Wg-rZl" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="6"/>
                                                         <userDefinedRuntimeAttributes>
@@ -238,11 +256,13 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="zTG-QB-cOC"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-Hu-Zbo" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-Hu-Zbo" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                        <state key="normal" title="N/A"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="10"/>
@@ -251,14 +271,17 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="CD5-xs-OY6"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hcX-nN-29C">
-                                                <rect key="frame" x="0.0" y="98" width="304" height="41"/>
+                                                <rect key="frame" x="0.0" y="117.5" width="304" height="50.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="834-M3-3O8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="834-M3-3O8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="7"/>
                                                         <userDefinedRuntimeAttributes>
@@ -269,9 +292,12 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="d1B-21-dO4"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BzL-r5-EAw" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BzL-r5-EAw" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="8"/>
                                                         <userDefinedRuntimeAttributes>
@@ -282,9 +308,12 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="Rsj-Jx-bzT"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wva-gH-hLt" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wva-gH-hLt" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="9"/>
                                                         <userDefinedRuntimeAttributes>
@@ -295,11 +324,13 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="acS-BG-bxD"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="og4-O1-naH" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="41"/>
+                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="og4-O1-naH" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                        <state key="normal" title="N/A"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="10"/>
@@ -308,6 +339,9 @@
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="PTE-6x-Bhc"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -352,7 +386,7 @@
             <objects>
                 <tableViewController title="Settings" id="hZw-y5-38U" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="m4a-HW-V71">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -380,7 +414,7 @@
             <objects>
                 <viewController title="About" id="3WL-bB-BRp" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WhX-sO-ccO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="uNT-j7-xho"/>

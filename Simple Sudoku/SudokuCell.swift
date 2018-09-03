@@ -69,6 +69,8 @@ class SudokuCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         locked = false
+        cell_selected = false
         self.cellLabel.text = ""
+        updateColor()
     }
 }
