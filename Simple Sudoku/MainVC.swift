@@ -24,6 +24,9 @@ class MainVC: UIViewController {
             self.outletContinueButton.isEnabled = canContinue
         }
     }
+
+    ///Holds the data for the currently active game
+    private var currentGame: Sudoku = blankSudoku()
     
     //MARK: - Outlets
     
@@ -35,6 +38,17 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let currentGame: Sudoku = loadCurrentGame() {
+            canContinue = true
+            self.currentGame = currentGame
+        } else {
+            canContinue = false
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -45,10 +59,18 @@ class MainVC: UIViewController {
     
     @IBAction func actionContinueButtonTapped(_ sender: UIButton) {
         //TODO: Continue
+        if let gameBoardVC = storyboard?.instantiateViewController(withIdentifier: "GameBoardVC") as? GameBoardVC {
+            gameBoardVC.sudoku = currentGame
+            navigationController?.pushViewController(gameBoardVC, animated: true)
+        }
     }
     
     @IBAction func actionNewGameButtonTapped(_ sender: UIButton) {
         //TODO: New Game
+        if let gameBoardVC = storyboard?.instantiateViewController(withIdentifier: "GameBoardVC") as? GameBoardVC {
+            gameBoardVC.sudoku = parseSudoku(from: "000008000000406070000100503005000064000983000800000000060000097050000100001670030")
+            navigationController?.pushViewController(gameBoardVC, animated: true)
+        }
     }
     
     @IBAction func actionSettingsButtonTapped(_ sender: UIButton) {

@@ -19,6 +19,8 @@
 		079EA5D921380290003B8296 /* sudoku.json in Resources */ = {isa = PBXBuildFile; fileRef = 079EA5D821380290003B8296 /* sudoku.json */; };
 		079EA5E421392FB4003B8296 /* UIButtonRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5E321392FB4003B8296 /* UIButtonRounded.swift */; };
 		079EA5E621395C8A003B8296 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5E521395C8A003B8296 /* CustomColors.swift */; };
+		079EA5E9213D54FC003B8296 /* SaveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5E8213D54FC003B8296 /* SaveData.swift */; };
+		079EA5ED213D599C003B8296 /* SudokuUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5EC213D599C003B8296 /* SudokuUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		079EA5D821380290003B8296 /* sudoku.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sudoku.json; sourceTree = "<group>"; };
 		079EA5E321392FB4003B8296 /* UIButtonRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonRounded.swift; sourceTree = "<group>"; };
 		079EA5E521395C8A003B8296 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
+		079EA5E8213D54FC003B8296 /* SaveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveData.swift; sourceTree = "<group>"; };
+		079EA5EC213D599C003B8296 /* SudokuUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 		079EA5A1212EC140003B8296 /* Simple Sudoku */ = {
 			isa = PBXGroup;
 			children = (
+				079EA5E7213D54AD003B8296 /* Frameworks */,
 				079EA5E021392EF1003B8296 /* UI Components */,
 				079EA5D52137FE31003B8296 /* Data */,
 				079EA5A2212EC140003B8296 /* AppDelegate.swift */,
@@ -154,6 +159,15 @@
 				079EA5E321392FB4003B8296 /* UIButtonRounded.swift */,
 			);
 			path = "UI Components";
+			sourceTree = "<group>";
+		};
+		079EA5E7213D54AD003B8296 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				079EA5E8213D54FC003B8296 /* SaveData.swift */,
+				079EA5EC213D599C003B8296 /* SudokuUtils.swift */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,8 +302,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079EA5ED213D599C003B8296 /* SudokuUtils.swift in Sources */,
 				079EA5E421392FB4003B8296 /* UIButtonRounded.swift in Sources */,
 				079EA5E621395C8A003B8296 /* CustomColors.swift in Sources */,
+				079EA5E9213D54FC003B8296 /* SaveData.swift in Sources */,
 				079EA5D12137D3FA003B8296 /* GameBoardVC.swift in Sources */,
 				079EA5A5212EC140003B8296 /* MainVC.swift in Sources */,
 				079EA5A3212EC140003B8296 /* AppDelegate.swift in Sources */,

@@ -63,7 +63,7 @@ class SudokuCell: UICollectionViewCell {
         }
     }
     
-    func setNumber(to num: Int8) {
+    func setNumber(to num: Int) {
         self.cellLabel.text = num != 0 ? String(num) : ""
     }
     

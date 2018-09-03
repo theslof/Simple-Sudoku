@@ -41,7 +41,6 @@
                                         <state key="normal" title="New Game"/>
                                         <connections>
                                             <action selector="actionNewGameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QQr-0J-n2p"/>
-                                            <segue destination="hve-zl-9R6" kind="show" id="jww-NO-bTy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dlq-wM-e4E">
@@ -83,13 +82,13 @@
         <!--Simple Sudoku-->
         <scene sceneID="aBr-GD-zKs">
             <objects>
-                <viewController title="Simple Sudoku" id="hve-zl-9R6" customClass="GameBoardVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameBoardVC" title="Simple Sudoku" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hve-zl-9R6" customClass="GameBoardVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EXh-6m-DbT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uzE-ob-PIF">
-                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="320"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="uzE-ob-PIF" secondAttribute="width" multiplier="1:1" id="dK2-cB-thA"/>
@@ -129,22 +128,22 @@
                                 </cells>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="sudoku_board" translatesAutoresizingMaskIntoConstraints="NO" id="dO8-LH-JxX">
-                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="dO8-LH-JxX" secondAttribute="width" multiplier="1:1" id="b69-gu-cLN"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tW-Aw-J7r">
-                                <rect key="frame" x="0.0" y="384" width="320" height="184"/>
+                                <rect key="frame" x="0.0" y="340" width="320" height="228"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hAw-V0-idc">
-                                        <rect key="frame" x="8" y="8" width="304" height="168"/>
+                                        <rect key="frame" x="8" y="8" width="304" height="212"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="UzW-et-QgI">
-                                                <rect key="frame" x="0.0" y="0.0" width="304" height="50.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="304" height="65.5"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MI7-fm-Yix" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="1"/>
                                                         <userDefinedRuntimeAttributes>
@@ -160,7 +159,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fai-FO-uqP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="2"/>
                                                         <userDefinedRuntimeAttributes>
@@ -176,7 +175,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqC-wk-0AP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="3"/>
                                                         <userDefinedRuntimeAttributes>
@@ -192,7 +191,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wt-Sk-eDT" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="C"/>
                                                         <userDefinedRuntimeAttributes>
@@ -210,10 +209,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PhK-xg-ZlO">
-                                                <rect key="frame" x="0.0" y="58.5" width="304" height="51"/>
+                                                <rect key="frame" x="0.0" y="73.5" width="304" height="65"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFA-TV-tN8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="51"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="65"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="4"/>
                                                         <userDefinedRuntimeAttributes>
@@ -229,7 +228,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEJ-nw-AlB" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="51"/>
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="65"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="5"/>
                                                         <userDefinedRuntimeAttributes>
@@ -245,7 +244,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBZ-Wg-rZl" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="51"/>
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="65"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="6"/>
                                                         <userDefinedRuntimeAttributes>
@@ -261,7 +260,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="10" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-Hu-Zbo" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="51"/>
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="65"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -278,10 +277,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hcX-nN-29C">
-                                                <rect key="frame" x="0.0" y="117.5" width="304" height="50.5"/>
+                                                <rect key="frame" x="0.0" y="146.5" width="304" height="65.5"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="834-M3-3O8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="7"/>
                                                         <userDefinedRuntimeAttributes>
@@ -297,7 +296,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BzL-r5-EAw" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="8"/>
                                                         <userDefinedRuntimeAttributes>
@@ -313,7 +312,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wva-gH-hLt" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="9"/>
                                                         <userDefinedRuntimeAttributes>
@@ -329,7 +328,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="11" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="og4-O1-naH" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="50.5"/>
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="65.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

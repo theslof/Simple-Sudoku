@@ -14,20 +14,13 @@ import UIKit
  - TODO:
     - Write a solver
     - Log history
-    - Save progress
-    - Resume saved games
     - Write a generator
     - Optimization of solver
  */
 class GameBoardVC: UIViewController {
     //MARK: - Variables
-    static let BLOCK_SIZE = 9
-    static let BOARD_SIZE = BLOCK_SIZE * BLOCK_SIZE
-    static let CELL_MINIMUM_SPACE = 0
-    static let CELL_BORDER_THIN = 1.0
-    static let CELL_BORDER_THICK = 2.0
-    var sudoku: [Int8] = Array(repeating: 0, count: BOARD_SIZE)
-    var locked: [Bool] = Array(repeating: false, count: BOARD_SIZE)
+    var sudoku: Sudoku = blankSudoku()
+    var locked: [Bool] = Array(repeating: false, count: Globals.BOARD_SIZE)
     var selectedCell: IndexPath? = nil
     
     //MARK: - Outlets
@@ -39,7 +32,7 @@ class GameBoardVC: UIViewController {
         gameBoardCV.delegate = self
         gameBoardCV.dataSource = self
         
-        loadSudoku("000008000000406070000100503005000064000983000800000000060000097050000100001670030")
+        loadSudoku()
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,18 +56,16 @@ class GameBoardVC: UIViewController {
 
     - TODO: Better error handling
     */
-    func loadSudoku(_ sud: String) {
-        if(sud.count > GameBoardVC.BOARD_SIZE) {
+    func loadSudoku() {
+        if(sudoku.solved.count > Globals.BOARD_SIZE) {
             fatalError("Error: Sudoku size too large")
         }
-        for (index, char) in sud.enumerated() {
-            let num = Int8(String(char)) ?? -1
+        for (index, num) in sudoku.solved.enumerated() {
             if(num < 0 || num > 9) {
-                fatalError("Error: Sudoku cell value at position \(index) invalid! Was \(char)")
+                fatalError("Error: Sudoku cell value at position \(index) invalid! Was \(num)")
             }
-            sudoku[index] = num
-            
-            if(num != 0){
+
+            if(sudoku.given[index] != 0){
                 locked[index] = true
             }
             
@@ -96,9 +87,10 @@ class GameBoardVC: UIViewController {
         if(value < 0 || value > 9) {
             fatalError("Error: Sudoku cell value at position \(index) invalid! Was \(value)")
         }
-        sudoku[index] = Int8(value)
+        sudoku.solved[index] = Int(value)
         selectedCell = nil
         gameBoardCV.reloadData()
+        saveCurrentGame(sudoku: sudoku)
     }
     
     //MARK: - Actions
@@ -122,12 +114,12 @@ class GameBoardVC: UIViewController {
 extension GameBoardVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sudoku.count
+        return Globals.BOARD_SIZE
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sudoku_cell", for: indexPath) as! SudokuCell
-        let val = sudoku[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Globals.SUDOKU_SELL_REUSABLE_ID, for: indexPath) as! SudokuCell
+        let val = sudoku.solved[indexPath.row]
         
         cell.setNumber(to: val)
         cell.lockCell(locked[indexPath.row])
