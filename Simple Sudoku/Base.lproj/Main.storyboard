@@ -26,36 +26,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jhE-Pj-sT0">
-                                <rect key="frame" x="122.5" y="221" width="75" height="168"/>
+                                <rect key="frame" x="113" y="221" width="94" height="168"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC1-DN-M7e">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="94" height="30"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                        <state key="normal" title="Continue"/>
-                                        <connections>
-                                            <action selector="actionContinueButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b4F-9R-jqD"/>
-                                        </connections>
+                                        <state key="normal" title="Saved Games"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-6t-TQR">
-                                        <rect key="frame" x="0.0" y="46" width="75" height="30"/>
+                                        <rect key="frame" x="0.0" y="46" width="94" height="30"/>
                                         <state key="normal" title="New Game"/>
                                         <connections>
-                                            <action selector="actionNewGameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QQr-0J-n2p"/>
+                                            <segue destination="hve-zl-9R6" kind="show" identifier="newGameSegue" id="L6a-QG-RGJ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dlq-wM-e4E">
-                                        <rect key="frame" x="0.0" y="92" width="75" height="30"/>
+                                        <rect key="frame" x="0.0" y="92" width="94" height="30"/>
                                         <state key="normal" title="Settings"/>
-                                        <connections>
-                                            <action selector="actionSettingsButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CmW-k2-iPg"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HD-A9-UCt">
-                                        <rect key="frame" x="0.0" y="138" width="75" height="30"/>
+                                        <rect key="frame" x="0.0" y="138" width="94" height="30"/>
                                         <state key="normal" title="About"/>
-                                        <connections>
-                                            <action selector="actionAboutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2iu-tr-han"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -72,7 +63,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="06p-Ry-Gg9"/>
                     <connections>
-                        <outlet property="outletContinueButton" destination="fC1-DN-M7e" id="Gh2-Ji-DWx"/>
+                        <outlet property="outletNewGameButton" destination="Dcb-6t-TQR" id="01v-QE-LUt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -88,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uzE-ob-PIF">
-                                <rect key="frame" x="0.0" y="20" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="uzE-ob-PIF" secondAttribute="width" multiplier="1:1" id="dK2-cB-thA"/>
@@ -128,30 +119,30 @@
                                 </cells>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="sudoku_board" translatesAutoresizingMaskIntoConstraints="NO" id="dO8-LH-JxX">
-                                <rect key="frame" x="0.0" y="20" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="dO8-LH-JxX" secondAttribute="width" multiplier="1:1" id="b69-gu-cLN"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tW-Aw-J7r">
-                                <rect key="frame" x="0.0" y="340" width="320" height="228"/>
+                                <rect key="frame" x="0.0" y="384" width="320" height="184"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hAw-V0-idc">
-                                        <rect key="frame" x="8" y="8" width="304" height="212"/>
+                                        <rect key="frame" x="8" y="8" width="304" height="168"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="UzW-et-QgI">
-                                                <rect key="frame" x="0.0" y="0.0" width="304" height="65.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="304" height="50.5"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MI7-fm-Yix" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="65.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="1"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderThickness">
                                                                 <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                                <real key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
@@ -159,7 +150,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fai-FO-uqP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="65.5"/>
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="2"/>
                                                         <userDefinedRuntimeAttributes>
@@ -175,7 +166,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LqC-wk-0AP" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="65.5"/>
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="3"/>
                                                         <userDefinedRuntimeAttributes>
@@ -191,7 +182,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wt-Sk-eDT" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="65.5"/>
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="C"/>
                                                         <userDefinedRuntimeAttributes>
@@ -209,10 +200,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PhK-xg-ZlO">
-                                                <rect key="frame" x="0.0" y="73.5" width="304" height="65"/>
+                                                <rect key="frame" x="0.0" y="58.5" width="304" height="51"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFA-TV-tN8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="65"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="4"/>
                                                         <userDefinedRuntimeAttributes>
@@ -228,7 +219,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEJ-nw-AlB" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="65"/>
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="5"/>
                                                         <userDefinedRuntimeAttributes>
@@ -244,7 +235,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBZ-Wg-rZl" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="65"/>
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="6"/>
                                                         <userDefinedRuntimeAttributes>
@@ -260,7 +251,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="10" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-Hu-Zbo" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="65"/>
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -277,10 +268,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hcX-nN-29C">
-                                                <rect key="frame" x="0.0" y="146.5" width="304" height="65.5"/>
+                                                <rect key="frame" x="0.0" y="117.5" width="304" height="50.5"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="834-M3-3O8" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="65.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="7"/>
                                                         <userDefinedRuntimeAttributes>
@@ -296,7 +287,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BzL-r5-EAw" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="78" y="0.0" width="70" height="65.5"/>
+                                                        <rect key="frame" x="78" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="8"/>
                                                         <userDefinedRuntimeAttributes>
@@ -312,7 +303,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wva-gH-hLt" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="156" y="0.0" width="70" height="65.5"/>
+                                                        <rect key="frame" x="156" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="9"/>
                                                         <userDefinedRuntimeAttributes>
@@ -327,9 +318,10 @@
                                                             <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="acS-BG-bxD"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="og4-O1-naH" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
-                                                        <rect key="frame" x="234" y="0.0" width="70" height="65.5"/>
+                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="og4-O1-naH" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                        <rect key="frame" x="234" y="0.0" width="70" height="50.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <state key="normal" title="Undo"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="10"/>
@@ -373,6 +365,7 @@
                         <viewLayoutGuide key="safeArea" id="9O3-d0-SC6"/>
                     </view>
                     <connections>
+                        <outlet property="buttonUndo" destination="og4-O1-naH" id="kov-SX-WHk"/>
                         <outlet property="gameBoardCV" destination="uzE-ob-PIF" id="KSd-aa-fqT"/>
                     </connections>
                 </viewController>

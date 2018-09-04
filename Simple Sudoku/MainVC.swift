@@ -21,31 +21,40 @@ class MainVC: UIViewController {
     ///Tracks if the user can continue an existing game
     private var canContinue: Bool = false {
         didSet {
-            self.outletContinueButton.isEnabled = canContinue
+            if(canContinue) {
+                self.outletNewGameButton.setTitle("Continue", for: .normal)
+            } else {
+                self.outletNewGameButton.setTitle("New Game", for: .normal)
+            }
         }
     }
 
     ///Holds the data for the currently active game
-    private var currentGame: Sudoku = blankSudoku()
+    private var currentGame: Sudoku?
     
     //MARK: - Outlets
     
-    @IBOutlet weak var outletContinueButton: UIButton!
+    @IBOutlet weak var outletNewGameButton: UIButton!
     
     //MARK: - Default overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        // Uncomment the following row to clear the saved game data at launch
+        //UserDefaults.standard.removeObject(forKey: defaultsKeys.CURRENT_GAME)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let currentGame: Sudoku = loadCurrentGame() {
+            debugPrint("Successfully loaded game data!")
             canContinue = true
             self.currentGame = currentGame
         } else {
+            debugPrint("Failed to load save game data!")
             canContinue = false
         }
     }
@@ -55,29 +64,18 @@ class MainVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    //MARK: - Actions
-    
-    @IBAction func actionContinueButtonTapped(_ sender: UIButton) {
-        //TODO: Continue
-        if let gameBoardVC = storyboard?.instantiateViewController(withIdentifier: "GameBoardVC") as? GameBoardVC {
-            gameBoardVC.sudoku = currentGame
-            navigationController?.pushViewController(gameBoardVC, animated: true)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "newGameSegue":
+            if currentGame == nil {
+                currentGame = Sudoku(from: "000008000000406070000100503005000064000983000800000000060000097050000100001670030")
+            }
+            if let view = segue.destination as? GameBoardVC {
+                view.sudoku = currentGame ?? Sudoku()
+            }
+        default:
+            super.prepare(for: segue, sender: sender)
         }
-    }
-    
-    @IBAction func actionNewGameButtonTapped(_ sender: UIButton) {
-        //TODO: New Game
-        if let gameBoardVC = storyboard?.instantiateViewController(withIdentifier: "GameBoardVC") as? GameBoardVC {
-            gameBoardVC.sudoku = parseSudoku(from: "000008000000406070000100503005000064000983000800000000060000097050000100001670030")
-            navigationController?.pushViewController(gameBoardVC, animated: true)
-        }
-    }
-    
-    @IBAction func actionSettingsButtonTapped(_ sender: UIButton) {
-        //TODO: Settings
-    }
-    
-    @IBAction func actionAboutButtonTapped(_ sender: UIButton) {
-        //TODO: About
+
     }
 }

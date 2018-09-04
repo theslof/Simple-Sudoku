@@ -13,18 +13,26 @@ struct defaultsKeys {
 }
 
 func saveCurrentGame(sudoku: Sudoku){
+    debugPrint("Trying to save game...")
     let defaults = UserDefaults.standard
-    if let data = try? JSONEncoder().encode(sudoku) {
+    if let data = try? PropertyListEncoder().encode(sudoku) {
+        debugPrint("Encoding successful, attempting to save data: \(data)")
         defaults.set(data, forKey: defaultsKeys.CURRENT_GAME)
     } else {
-        print("Error: Could not save sudoku")
+        debugPrint("Error: Could not save sudoku")
     }
 }
 
 func loadCurrentGame() -> Sudoku? {
+    debugPrint("Trying to load game...")
     let defaults = UserDefaults.standard
     if let currentGame = defaults.value(forKey: defaultsKeys.CURRENT_GAME) as? Data {
-        return try? JSONDecoder().decode(Sudoku.self, from: currentGame)
+        debugPrint("Game data found! Attempting to decode data...")
+        do { return try PropertyListDecoder().decode(Sudoku.self, from: currentGame) }
+        catch {
+            debugPrint(error.localizedDescription)
+        }
     }
+    debugPrint("Loading failed!")
     return nil
 }

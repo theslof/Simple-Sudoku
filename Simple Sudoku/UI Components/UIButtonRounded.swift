@@ -12,9 +12,9 @@ import UIKit
 @IBDesignable
 class UIButtonRounded: UIButton {
     
-    @IBInspectable var cornerRadius: CGFloat = 5 {
+    @IBInspectable var borderRadius: CGFloat = 5 {
         didSet {
-            updateCorners(cornerRadius: cornerRadius)
+            updateCorners(cornerRadius: borderRadius)
         }
     }
     
@@ -51,6 +51,6 @@ class UIButtonRounded: UIButton {
     }
     
     func updateCorners(cornerRadius radius: CGFloat) {
-        layer.cornerRadius = radius
+        self.layer.cornerRadius = radius
     }
 }
