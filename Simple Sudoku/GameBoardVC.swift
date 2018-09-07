@@ -14,7 +14,6 @@ import UIKit
  - TODO:
     - Write a solver
     - Log history
-    - Write a generator
     - Optimization of solver
  */
 class GameBoardVC: UIViewController {
@@ -67,7 +66,7 @@ class GameBoardVC: UIViewController {
 
         // Make sure that each cell lies within accepted values...
         for (index, num) in sudoku.solved.enumerated() {
-            if (num < 0 || num > Globals.BLOCK_SIZE) {
+            if (num < 0 || num > Globals.ROW_SIZE) {
                 fatalError("Error: Sudoku cell value at position \(index) invalid! Was \(num)")
             }
 
@@ -93,7 +92,7 @@ class GameBoardVC: UIViewController {
             fatalError("Error: Sudoku cell value at position \(index) invalid! Was \(value)")
         }
 
-        if sudokuUtils(addMove: Sudoku.HistoryItem(position: index, number: Int8(value)), to: sudoku) {
+        if sudokuUtils(addMove: Sudoku.HistoryItem(position: index, number: value), to: sudoku) {
             buttonUndo.isEnabled = sudokuUtils(hasMovesInHistory: sudoku)
             selectedCell = nil
             gameBoardCV.reloadData()

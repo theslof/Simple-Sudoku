@@ -43,10 +43,16 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dlq-wM-e4E">
                                         <rect key="frame" x="0.0" y="92" width="94" height="30"/>
                                         <state key="normal" title="Settings"/>
+                                        <connections>
+                                            <segue destination="hZw-y5-38U" kind="show" id="FeH-eu-6Qr"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HD-A9-UCt">
                                         <rect key="frame" x="0.0" y="138" width="94" height="30"/>
                                         <state key="normal" title="About"/>
+                                        <connections>
+                                            <segue destination="3WL-bB-BRp" kind="show" id="XiU-av-8R1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
