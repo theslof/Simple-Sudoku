@@ -21,6 +21,8 @@
 		079EA5E621395C8A003B8296 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5E521395C8A003B8296 /* CustomColors.swift */; };
 		079EA5E9213D54FC003B8296 /* SaveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5E8213D54FC003B8296 /* SaveData.swift */; };
 		079EA5ED213D599C003B8296 /* SudokuUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5EC213D599C003B8296 /* SudokuUtils.swift */; };
+		AF9005F74C67CE0DC03B2BB1 /* RandomUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF900D35908AE4968808AF06 /* RandomUtils.swift */; };
+		AF900A6895F6C8C10E8D6B3E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AF9007DCC51318D0D991BCBB /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		079EA5E521395C8A003B8296 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		079EA5E8213D54FC003B8296 /* SaveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveData.swift; sourceTree = "<group>"; };
 		079EA5EC213D599C003B8296 /* SudokuUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuUtils.swift; sourceTree = "<group>"; };
+		AF9007DCC51318D0D991BCBB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		AF900D35908AE4968808AF06 /* RandomUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,7 @@
 				079EA5B6212EC141003B8296 /* Simple SudokuTests */,
 				079EA5C1212EC142003B8296 /* Simple SudokuUITests */,
 				079EA5A0212EC140003B8296 /* Products */,
+				AF9007DCC51318D0D991BCBB /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +127,7 @@
 				079EA5A4212EC140003B8296 /* MainVC.swift */,
 				079EA5D22137D441003B8296 /* SudokuCell.swift */,
 				079EA5D02137D3FA003B8296 /* GameBoardVC.swift */,
+				AF900D35908AE4968808AF06 /* RandomUtils.swift */,
 			);
 			path = "Simple Sudoku";
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 				079EA5AA212EC141003B8296 /* Assets.xcassets in Resources */,
 				079EA5D921380290003B8296 /* sudoku.json in Resources */,
 				079EA5A8212EC140003B8296 /* Main.storyboard in Resources */,
+				AF900A6895F6C8C10E8D6B3E /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +317,7 @@
 				079EA5A5212EC140003B8296 /* MainVC.swift in Sources */,
 				079EA5A3212EC140003B8296 /* AppDelegate.swift in Sources */,
 				079EA5D32137D441003B8296 /* SudokuCell.swift in Sources */,
+				AF9005F74C67CE0DC03B2BB1 /* RandomUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
