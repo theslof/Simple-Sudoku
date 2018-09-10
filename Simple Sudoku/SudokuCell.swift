@@ -10,10 +10,10 @@ import UIKit
 
 class SudokuCell: UICollectionViewCell {
     
-    ///MARK: - Outlets
+    //MARK: - Outlets
     @IBOutlet weak var cellLabel: UILabel!
     
-    ///MARK: - Members
+    //MARK: - Members
     
     static let defaultColor: CGColor = UIColor.white.cgColor
     static let lockedColor: CGColor = UIColor.paleGray.cgColor
@@ -35,7 +35,7 @@ class SudokuCell: UICollectionViewCell {
     private var cell_selected: Bool = false
         
     
-    ///MARK: - Functions
+    //MARK: - Functions
     
     private func updateColor() {
         if (locked) {

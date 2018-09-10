@@ -17,6 +17,9 @@ struct Globals {
     static let DEBUG_PRINT_ENABLED = true
 }
 
+/**
+Sudoku puzzle as a swift class, complete with methods for manipulating the cell values.
+*/
 class Sudoku: Codable {
     private(set) var solutions: Int = 0
     private(set) var guesses: Int = 0
@@ -73,6 +76,10 @@ class Sudoku: Codable {
         case history
         case seed
     }
+
+    //######################
+    // MARK: - Initializers
+    //######################
 
     init() {
         self.seed = UInt64(time(nil))
@@ -147,6 +154,10 @@ class Sudoku: Codable {
         }
     }
 
+    //#####################
+    // MARK: -Manipulation
+    //#####################
+
     // Attempt to add a legal move at specified cell. Returns false if it's illegal.
     func addLegal(move: HistoryItem, log: Bool) -> Bool {
         if ( rows[Sudoku.rowIndices[move.position]][move.number - 1] > 0 ||
@@ -189,10 +200,12 @@ class Sudoku: Codable {
     * Solver *
     *********/
 
+    // Solve the puzzle without specifying a seed
     func solve() -> Int {
         return self.solve(withRandomSeed: UInt64(time(nil)))
     }
 
+    // Solve the puzzle with the supplied seed for the random generator
     func solve(withRandomSeed seed: UInt64) -> Int {
         let rs = GKMersenneTwisterRandomSource()
         rs.seed = seed
@@ -204,8 +217,9 @@ class Sudoku: Codable {
         return self.solutions
     }
 
+    // The solver algorithm, recursively loops through each cell and checks all possible solutions.
+    // Only the latest found solution is saved.
     private func solve(randomSource rs: GKMersenneTwisterRandomSource, next i: Int) {
-        let currentCell = self.randomOrder[i]
         if( i >= self.solved.count) {
             // We have filled the entire sudoku, and it must be legal.
 
@@ -214,13 +228,18 @@ class Sudoku: Codable {
             // Increase solution counter by one
             self.solutions += 1
 
+            // Backtrack
             return
-        } else if( self.solved[currentCell] == 0 ) {
+        }
+        // Take next index from our array of a predefined random order:
+        let currentCell = self.randomOrder[i]
+        if( self.solved[currentCell] == 0 ) {
             // The current cell is unsolved
-            let numbers: [Int] = shuffle(array: Array(1...Globals.ROW_SIZE), randomSource: rs)
 
             // Try to solve the cell for number [1...9] in a random order:
+            let numbers: [Int] = shuffle(array: Array(1...Globals.ROW_SIZE), randomSource: rs)
             for n in numbers {
+                // Since we're brute forcing everything's a guess, but we still track it
                 self.guesses += 1
 
                 // Try to add the move
@@ -242,6 +261,7 @@ class Sudoku: Codable {
         self.solve(randomSource: rs, next: i+1)
     }
 
+    // Shuffle the array using the supplied random source
     func shuffle(array: [Int], randomSource rs: GKMersenneTwisterRandomSource) -> [Int] {
         var original = array
         var shuffled: [Int] = []
@@ -254,10 +274,13 @@ class Sudoku: Codable {
         return shuffled
     }
 
+    // Check if the puzzle is solved. If the .solved array does not contain 0 it has no unknowns and is solved.
     func isSolved() -> Bool {
         return !self.solved.contains(0)
     }
 
+    // Check if the puzzle is legal, ie. has no duplicates in any row, column or section. Thanks to our helper arrays
+    // we can simply check that no row/cel/sec has more than one of each value.
     func isLegal() -> Bool {
         for i in 0..<Globals.ROW_SIZE {
             for j in 0..<Globals.ROW_SIZE {
@@ -271,18 +294,26 @@ class Sudoku: Codable {
     }
 }
 
+//###########
+// Utilities
+//###########
+
+// Return the row that matches the cell number
 func sudokuUtils(findRowForCell cell: Int) -> Int {
     return Sudoku.rowIndices[cell]
 }
 
+// Return the column that matches the cell number
 func sudokuUtils(findColForCell cell: Int) -> Int {
     return Sudoku.colIndices[cell]
 }
 
+// Return the section that matches the cell number
 func sudokuUtils(findSecForCell cell: Int) -> Int {
     return Sudoku.secIndices[cell]
 }
 
+// Undo latest move from the specified sudoku puzzle. Returns true if successful.
 func sudokuUtils(undoMoveFrom sudoku: Sudoku) -> Bool {
     // Try to pop last history item:
     if let move = sudoku.history.popLast() {
@@ -299,6 +330,7 @@ func sudokuUtils(undoMoveFrom sudoku: Sudoku) -> Bool {
     return false
 }
 
+// Add a new move to the puzzle. Return true if successful.
 func sudokuUtils(addMove move: Sudoku.HistoryItem, to sudoku: Sudoku) -> Bool {
     if sudoku.given[move.position] == 0 && sudoku.solved[move.position] != move.number {
         sudoku.solved[move.position] = move.number
@@ -308,12 +340,9 @@ func sudokuUtils(addMove move: Sudoku.HistoryItem, to sudoku: Sudoku) -> Bool {
     return false
 }
 
+// Check if we have any moves in our move history.
 func sudokuUtils(hasMovesInHistory sudoku: Sudoku) -> Bool {
     return !sudoku.history.isEmpty
-}
-
-func sudokuUtils(solve: Sudoku) -> Bool{
-    return false
 }
 
 /// Print out a message if debug is enabled, otherwise ignore. Set Globals.DEBUG_PRINT_ENABLED to false to disable debug messages.

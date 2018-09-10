@@ -12,17 +12,17 @@ import UIKit
  View Controller for the game board view.
 
  - TODO:
-    - Write a solver
-    - Log history
+    - Track puzzle completion, inform user of success
+    - Add timer?
     - Optimization of solver
  */
 class GameBoardVC: UIViewController {
-    //MARK: - Variables
+    // MARK: - Variables
     var sudoku: Sudoku = Sudoku()
     var locked: [Bool] = Array(repeating: false, count: Globals.BOARD_SIZE)
     var selectedCell: IndexPath? = nil
 
-    //MARK: - Outlets
+    // MARK: - Outlets
     @IBOutlet weak var gameBoardCV: UICollectionView!
     @IBOutlet weak var buttonUndo: UIButtonRounded!
 
@@ -108,8 +108,11 @@ class GameBoardVC: UIViewController {
         }
     }
 
+    // Undo the last move made
     func undoMove() {
+        // Try to undo a move
         if sudokuUtils(undoMoveFrom: sudoku) {
+            // We successfully undid a move, update UI and save the data
             buttonUndo.isEnabled = sudokuUtils(hasMovesInHistory: sudoku)
             gameBoardCV.reloadData()
             saveCurrentGame(sudoku: sudoku)
@@ -160,7 +163,7 @@ extension GameBoardVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //Selected a cell. Deselect previously selected cell and
+        //Selected a cell. Deselect previously selected cell
         if selectedCell != nil {
             let oldCell = collectionView.cellForItem(at: selectedCell!) as! SudokuCell
             oldCell.selectCell(false)
