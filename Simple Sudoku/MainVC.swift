@@ -69,7 +69,8 @@ class MainVC: UIViewController {
         case "newGameSegue":
             if currentGame == nil {
                 currentGame = Sudoku(from: "300060207020009010109005800097806000800000006000503970002600501010900040408050009")
-                print("Generated sudoku: \(sudokuUtils(generateSudoku: currentGame!, fromSeed: 1337))")
+                let _ = currentGame?.solve(withRandomSeed: 1337)
+                print("Generated sudoku: \(currentGame!)")
             }
             if let view = segue.destination as? GameBoardVC {
                 view.sudoku = currentGame ?? Sudoku()

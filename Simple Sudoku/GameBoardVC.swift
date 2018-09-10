@@ -97,6 +97,14 @@ class GameBoardVC: UIViewController {
             selectedCell = nil
             gameBoardCV.reloadData()
             saveCurrentGame(sudoku: sudoku)
+
+            if(!sudoku.isLegal()) {
+                // Sudoku does not conform to rules, ie. the player made an illegal move.
+            } else {
+                if(sudoku.isSolved()) {
+                    // Sudoku is solved, inform the player
+                }
+            }
         }
     }
 

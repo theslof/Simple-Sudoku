@@ -10,32 +10,56 @@ import Foundation
 import GameKit
 
 struct Globals {
-    static let BLOCK_WIDTH = 3
-    static let ROW_SIZE = BLOCK_WIDTH * BLOCK_WIDTH
+    static let SEC_WIDTH = 3
+    static let ROW_SIZE = SEC_WIDTH * SEC_WIDTH
     static let BOARD_SIZE = ROW_SIZE * ROW_SIZE
     static let SUDOKU_SELL_REUSABLE_ID = "sudoku_cell"
     static let DEBUG_PRINT_ENABLED = true
 }
 
 class Sudoku: Codable {
+    private(set) var solutions: Int = 0
+    private(set) var guesses: Int = 0
+    private(set) var seed: UInt64
+    private(set) var difficulty: Int = 0
     var given: [Int]
     var solved: [Int]
     var history: [HistoryItem]
+    var solution: [Int]?
+
+    // Helper arrays, speeds up solving drastically
     private var rows: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
     private var cols: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
-    private var blocks: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
-    static let rowIndices: [Int] = Array(0..<Globals.BOARD_SIZE).flatMap { i in Array(repeating: i, count: Globals.ROW_SIZE) }
-    static let colIndices: [Int] = Array(0..<Globals.BOARD_SIZE).flatMap { i in Array(0..<Globals.ROW_SIZE) }
-    // TODO: Fix this, it's awful
-    static let blockIndices: [Int] = [ 0, 0, 0, 1, 1, 1, 2, 2, 2,
-                                       0, 0, 0, 1, 1, 1, 2, 2, 2,
-                                       0, 0, 0, 1, 1, 1, 2, 2, 2,
-                                       3, 3, 3, 4, 4, 4, 5, 5, 5,
-                                       3, 3, 3, 4, 4, 4, 5, 5, 5,
-                                       3, 3, 3, 4, 4, 4, 5, 5, 5,
-                                       6, 6, 6, 7, 7, 7, 8, 8, 8,
-                                       6, 6, 6, 7, 7, 7, 8, 8, 8,
-                                       6, 6, 6, 7, 7, 7, 8, 8, 8]
+    private var secs: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
+    private var randomOrder: [Int] = Array(0..<Globals.BOARD_SIZE)
+
+    static let rowIndices: [Int] = [ 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                     1, 1, 1, 1, 1, 1, 1, 1, 1,
+                                     2, 2, 2, 2, 2, 2, 2, 2, 2,
+                                     3, 3, 3, 3, 3, 3, 3, 3, 3,
+                                     4, 4, 4, 4, 4, 4, 4, 4, 4,
+                                     5, 5, 5, 5, 5, 5, 5, 5, 5,
+                                     6, 6, 6, 6, 6, 6, 6, 6, 6,
+                                     7, 7, 7, 7, 7, 7, 7, 7, 7,
+                                     8, 8, 8, 8, 8, 8, 8, 8, 8 ]
+    static let colIndices: [Int] = [ 0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8,
+                                     0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+    static let secIndices: [Int] = [ 0, 0, 0, 1, 1, 1, 2, 2, 2,
+                                     0, 0, 0, 1, 1, 1, 2, 2, 2,
+                                     0, 0, 0, 1, 1, 1, 2, 2, 2,
+                                     3, 3, 3, 4, 4, 4, 5, 5, 5,
+                                     3, 3, 3, 4, 4, 4, 5, 5, 5,
+                                     3, 3, 3, 4, 4, 4, 5, 5, 5,
+                                     6, 6, 6, 7, 7, 7, 8, 8, 8,
+                                     6, 6, 6, 7, 7, 7, 8, 8, 8,
+                                     6, 6, 6, 7, 7, 7, 8, 8, 8 ]
     //var seed: UInt64
 
     struct HistoryItem: Codable {
@@ -47,9 +71,11 @@ class Sudoku: Codable {
         case given
         case solved
         case history
+        case seed
     }
 
     init() {
+        self.seed = UInt64(time(nil))
         self.given = Array(repeating: 0, count: Globals.BOARD_SIZE)
         self.solved = Array(repeating: 0, count: Globals.BOARD_SIZE)
         self.history = []
@@ -57,6 +83,7 @@ class Sudoku: Codable {
     }
 
     init(given: [Int]) {
+        self.seed = UInt64(time(nil))
         self.given = given
         self.solved = given
         self.history = []
@@ -64,6 +91,7 @@ class Sudoku: Codable {
     }
 
     init(given: [Int], solved: [Int]) {
+        self.seed = UInt64(time(nil))
         self.given = given
         self.solved = solved
         self.history = []
@@ -71,6 +99,7 @@ class Sudoku: Codable {
     }
 
     init(given: [Int], solved: [Int], history: [HistoryItem]) {
+        self.seed = UInt64(time(nil))
         self.given = given
         self.solved = solved
         self.history = history
@@ -83,6 +112,7 @@ class Sudoku: Codable {
         self.given = try container.decode(Array<Int>.self, forKey: .given)
         self.solved = try container.decode(Array<Int>.self, forKey: .solved)
         self.history = try container.decode(Array<HistoryItem>.self, forKey: .history)
+        self.seed = try container.decode(UInt64.self, forKey: .seed)
         loadHelperArrays()
     }
 
@@ -112,7 +142,7 @@ class Sudoku: Codable {
             if c != 0 {
                 self.rows[Sudoku.rowIndices[index]][c - 1] += 1
                 self.cols[Sudoku.colIndices[index]][c - 1] += 1
-                self.blocks[Sudoku.blockIndices[index]][c - 1] += 1
+                self.secs[Sudoku.secIndices[index]][c - 1] += 1
             }
         }
     }
@@ -121,7 +151,7 @@ class Sudoku: Codable {
     func addLegal(move: HistoryItem, log: Bool) -> Bool {
         if ( rows[Sudoku.rowIndices[move.position]][move.number - 1] > 0 ||
              cols[Sudoku.colIndices[move.position]][move.number - 1] > 0 ||
-             blocks[Sudoku.blockIndices[move.position]][move.number - 1] > 0 ) {
+             secs[Sudoku.secIndices[move.position]][move.number - 1] > 0 ) {
             return false
         }
 
@@ -138,13 +168,13 @@ class Sudoku: Codable {
             // relevant values:
             self.rows[Sudoku.rowIndices[move.position]][old - 1] -= 1
             self.cols[Sudoku.colIndices[move.position]][old - 1] -= 1
-            self.blocks[Sudoku.blockIndices[move.position]][old - 1] -= 1
+            self.secs[Sudoku.secIndices[move.position]][old - 1] -= 1
         }
         if (move.number != 0) {
             // We are adding a new value and should increase the helper arrays accordingly
             self.rows[Sudoku.rowIndices[move.position]][move.number - 1] += 1
             self.cols[Sudoku.colIndices[move.position]][move.number - 1] += 1
-            self.blocks[Sudoku.blockIndices[move.position]][move.number - 1] += 1
+            self.secs[Sudoku.secIndices[move.position]][move.number - 1] += 1
         }
 
         // Write the new value to the puzzle array
@@ -153,6 +183,91 @@ class Sudoku: Codable {
         if (log) {
             self.history.append(move)
         }
+    }
+
+    /*********
+    * Solver *
+    *********/
+
+    func solve() -> Int {
+        return self.solve(withRandomSeed: UInt64(time(nil)))
+    }
+
+    func solve(withRandomSeed seed: UInt64) -> Int {
+        let rs = GKMersenneTwisterRandomSource()
+        rs.seed = seed
+        self.solutions = 0
+        self.guesses = 0
+        self.solution = nil
+        self.randomOrder = shuffle(array: Array(0..<Globals.BOARD_SIZE), randomSource: rs)
+        self.solve(randomSource: rs, next: 0)
+        return self.solutions
+    }
+
+    private func solve(randomSource rs: GKMersenneTwisterRandomSource, next i: Int) {
+        let currentCell = self.randomOrder[i]
+        if( i >= self.solved.count) {
+            // We have filled the entire sudoku, and it must be legal.
+
+            // Save the last found solution
+            self.solution = self.solved
+            // Increase solution counter by one
+            self.solutions += 1
+
+            return
+        } else if( self.solved[currentCell] == 0 ) {
+            // The current cell is unsolved
+            let numbers: [Int] = shuffle(array: Array(1...Globals.ROW_SIZE), randomSource: rs)
+
+            // Try to solve the cell for number [1...9] in a random order:
+            for n in numbers {
+                self.guesses += 1
+
+                // Try to add the move
+                if ( self.addLegal(move: HistoryItem(position: currentCell, number: n), log: false) ) {
+
+                    // Move was legal, solve next unsolved cell
+                    self.solve(randomSource: rs, next: i+1)
+
+                    // Clear the cell and check next value for a solution
+                    self.add(move: HistoryItem(position: currentCell, number: 0), log: false)
+                }
+            }
+
+            // No solution found for this cell, there must be an error earlier in the sudoku. Backtrack.
+            return
+        }
+
+        // This cell was already filled in, try the next cell instead
+        self.solve(randomSource: rs, next: i+1)
+    }
+
+    func shuffle(array: [Int], randomSource rs: GKMersenneTwisterRandomSource) -> [Int] {
+        var original = array
+        var shuffled: [Int] = []
+        let rand = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: original.count)
+
+        while original.count > 0 {
+            shuffled.append(original.remove(at: rand.nextInt(upperBound: original.count)))
+        }
+
+        return shuffled
+    }
+
+    func isSolved() -> Bool {
+        return !self.solved.contains(0)
+    }
+
+    func isLegal() -> Bool {
+        for i in 0..<Globals.ROW_SIZE {
+            for j in 0..<Globals.ROW_SIZE {
+                if self.rows[i][j] > 1 || self.cols[i][j] > 1 || self.secs[i][j] > 1 {
+                    return false
+                }
+
+            }
+        }
+        return true
     }
 }
 
@@ -164,8 +279,8 @@ func sudokuUtils(findColForCell cell: Int) -> Int {
     return Sudoku.colIndices[cell]
 }
 
-func sudokuUtils(findBlockForCell cell: Int) -> Int {
-    return Sudoku.blockIndices[cell]
+func sudokuUtils(findSecForCell cell: Int) -> Int {
+    return Sudoku.secIndices[cell]
 }
 
 func sudokuUtils(undoMoveFrom sudoku: Sudoku) -> Bool {
@@ -200,65 +315,6 @@ func sudokuUtils(hasMovesInHistory sudoku: Sudoku) -> Bool {
 func sudokuUtils(solve: Sudoku) -> Bool{
     return false
 }
-
-// #############
-// # Generator #
-// #############
-
-func sudokuUtils(generateSudoku sudoku: Sudoku) -> Bool {
-    return sudokuUtils(generateSudoku: sudoku, fromSeed: UInt64(time(nil)))
-}
-
-func sudokuUtils(generateSudoku sudoku: Sudoku, fromSeed seed: UInt64) -> Bool {
-    let rs = GKMersenneTwisterRandomSource()
-    rs.seed = seed
-    return sudokuGenerator(sudoku: sudoku, randomSource: rs, next: 0)
-}
-
-private func sudokuGenerator(sudoku: Sudoku, randomSource rs: GKMersenneTwisterRandomSource, next i: Int) -> Bool {
-    if( i >= sudoku.solved.count) {
-        // We have filled the entire sudoku, and it must be legal.
-        return true
-    } else if( sudoku.solved[i] == 0 ) {
-        // The current cell is unsolved
-        let numbers: [Int] = shuffledNumbers(rs)
-
-        // Try to solve the cell for number [1...9] in a random order:
-        for n in numbers {
-
-            // Try to add the move
-            if ( sudoku.addLegal(move: Sudoku.HistoryItem(position: i, number: n), log: false) ) {
-
-                // Move was legal, solve next unsolved cell
-                if ( sudokuGenerator(sudoku: sudoku, randomSource: rs, next: i+1) ) {
-                    // Next cell returned True, which means that the sudoku is solved and legal
-                    return true
-                }
-
-                // We failed to solve the rest of the sudoku, clear the cell
-                sudoku.add(move: Sudoku.HistoryItem(position: i, number: 0), log: false)
-            }
-            debugPrint("Move \(n) at cell \(i) was illegal.")
-        }
-
-        // No solution found for this cell, there must be an error earlier in the sudoku. Backtrack.
-        return false
-    }
-    return sudokuGenerator(sudoku: sudoku, randomSource: rs, next: i+1)
-}
-
-private func shuffledNumbers(_ rs: GKMersenneTwisterRandomSource) -> [Int] {
-    var unshuffled: [Int] = Array(1...Globals.ROW_SIZE)
-    var nums: [Int] = []
-    let rand = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: unshuffled.count)
-
-    while unshuffled.count > 0 {
-        nums.append(unshuffled.remove(at: rand.nextInt(upperBound: unshuffled.count)))
-    }
-
-    return nums
-}
-
 
 /// Print out a message if debug is enabled, otherwise ignore. Set Globals.DEBUG_PRINT_ENABLED to false to disable debug messages.
 func debugPrint(_ message: String) {
