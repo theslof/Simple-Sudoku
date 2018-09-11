@@ -181,7 +181,8 @@ public class QQWing {
     static let SEC_GROUP_SIZE: Int = (ROW_COL_SEC_SIZE * GRID_SIZE)
     static let BOARD_SIZE: Int = (ROW_COL_SEC_SIZE * ROW_COL_SEC_SIZE)
     static let POSSIBILITY_SIZE: Int = (BOARD_SIZE * ROW_COL_SEC_SIZE)
-    private let random: GKRandomDistribution
+    private var random: GKRandomDistribution
+    private(set) var seed: UInt64
 
     /**
      * The last round of solving
@@ -267,6 +268,13 @@ public class QQWing {
     }
 
     init(_ seed: UInt64) {
+        self.seed = seed
+        let rs = GKMersenneTwisterRandomSource(seed: seed)
+        random = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 80)
+    }
+
+    func setSeed(_ seed: UInt64){
+        self.seed = seed
         let rs = GKMersenneTwisterRandomSource(seed: seed)
         random = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 80)
     }
@@ -775,7 +783,7 @@ public class QQWing {
             }
         }
         while (solveInstructions.count > 0 && solveInstructions.last!.round == round) {
-            let _ = solveInstructions.dropLast()
+            let _ = solveInstructions.popLast()
         }
     }
 

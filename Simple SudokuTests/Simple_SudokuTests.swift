@@ -28,8 +28,10 @@ class Simple_SudokuTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
+        var sudoku = QQWing(1)
         self.measure {
             // Put the code you want to measure the time of here.
+            sudoku.generatePuzzleSymmetry(Symmetry.ROTATE180)
         }
     }
     

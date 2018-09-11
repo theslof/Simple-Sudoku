@@ -21,11 +21,7 @@ class MainVC: UIViewController {
     ///Tracks if the user can continue an existing game
     private var canContinue: Bool = false {
         didSet {
-            if(canContinue) {
-                self.outletNewGameButton.setTitle("Continue", for: .normal)
-            } else {
-                self.outletNewGameButton.setTitle("New Game", for: .normal)
-            }
+            self.outletContinueButton.isEnabled = canContinue
         }
     }
 
@@ -35,6 +31,7 @@ class MainVC: UIViewController {
     //MARK: - Outlets
     
     @IBOutlet weak var outletNewGameButton: UIButton!
+    @IBOutlet weak var outletContinueButton: UIButton!
     
     //MARK: - Default overrides
     
@@ -66,12 +63,7 @@ class MainVC: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "newGameSegue":
-            if currentGame == nil {
-                currentGame = Sudoku(from: "300060207020009010109005800097806000800000006000503970002600501010900040408050009")
-                let _ = currentGame?.solve(withRandomSeed: 1337)
-                print("Generated sudoku: \(currentGame!)")
-            }
+        case "continueSegue":
             if let view = segue.destination as? GameBoardVC {
                 view.sudoku = currentGame ?? Sudoku()
             }

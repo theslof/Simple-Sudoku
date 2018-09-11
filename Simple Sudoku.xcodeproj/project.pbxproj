@@ -22,6 +22,8 @@
 		079EA5E621395C8A003B8296 /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5E521395C8A003B8296 /* CustomColors.swift */; };
 		079EA5E9213D54FC003B8296 /* SaveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5E8213D54FC003B8296 /* SaveData.swift */; };
 		079EA5ED213D599C003B8296 /* SudokuUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5EC213D599C003B8296 /* SudokuUtils.swift */; };
+		07BF45132147B5C8002B4FCB /* QQWing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90009A2C31A2A4C0452F1A /* QQWing.swift */; };
+		07BF45152147D881002B4FCB /* NewGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF45142147D881002B4FCB /* NewGameVC.swift */; };
 		AF900A6895F6C8C10E8D6B3E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AF9007DCC51318D0D991BCBB /* .gitignore */; };
 		AF900EB8F4513D6EB5851D04 /* QQWing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90009A2C31A2A4C0452F1A /* QQWing.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +66,7 @@
 		079EA5E521395C8A003B8296 /* CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColors.swift; sourceTree = "<group>"; };
 		079EA5E8213D54FC003B8296 /* SaveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveData.swift; sourceTree = "<group>"; };
 		079EA5EC213D599C003B8296 /* SudokuUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuUtils.swift; sourceTree = "<group>"; };
+		07BF45142147D881002B4FCB /* NewGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameVC.swift; sourceTree = "<group>"; };
 		AF90009A2C31A2A4C0452F1A /* QQWing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QQWing.swift; sourceTree = "<group>"; };
 		AF9007DCC51318D0D991BCBB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +124,7 @@
 				079EA5A9212EC141003B8296 /* Assets.xcassets */,
 				079EA5AB212EC141003B8296 /* LaunchScreen.storyboard */,
 				079EA5A6212EC140003B8296 /* Main.storyboard */,
+				07BF45142147D881002B4FCB /* NewGameVC.swift */,
 				079EA5A2212EC140003B8296 /* AppDelegate.swift */,
 				079EA5E7213D54AD003B8296 /* Frameworks */,
 				079EA5E021392EF1003B8296 /* UI Components */,
@@ -316,6 +320,7 @@
 				079EA5E9213D54FC003B8296 /* SaveData.swift in Sources */,
 				079EA5D12137D3FA003B8296 /* GameBoardVC.swift in Sources */,
 				079EA5A5212EC140003B8296 /* MainVC.swift in Sources */,
+				07BF45152147D881002B4FCB /* NewGameVC.swift in Sources */,
 				079EA5A3212EC140003B8296 /* AppDelegate.swift in Sources */,
 				079EA5D32137D441003B8296 /* SudokuCell.swift in Sources */,
 				AF900EB8F4513D6EB5851D04 /* QQWing.swift in Sources */,
@@ -326,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07BF45132147B5C8002B4FCB /* QQWing.swift in Sources */,
 				0773AD452142C98A001ECAE5 /* SudokuUtils.swift in Sources */,
 				079EA5B8212EC141003B8296 /* Simple_SudokuTests.swift in Sources */,
 			);
