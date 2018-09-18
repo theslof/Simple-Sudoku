@@ -24,7 +24,7 @@ class Sudoku: Codable {
     private(set) var solutions: Int = 0
     private(set) var guesses: Int = 0
     private(set) var seed: UInt64
-    private(set) var difficulty: Int = 0
+    private(set) var difficulty: String = "Unknown"
     var given: [Int]
     var solved: [Int]
     var history: [HistoryItem]
@@ -81,28 +81,31 @@ class Sudoku: Codable {
     // MARK: - Initializers
     //######################
 
-    init() {
-        self.seed = UInt64(time(nil))
-        self.given = Array(repeating: 0, count: Globals.BOARD_SIZE)
-        self.solved = Array(repeating: 0, count: Globals.BOARD_SIZE)
-        self.history = []
-        loadHelperArrays()
+    convenience init() {
+        self.init(given: Array(repeating: 0, count: Globals.BOARD_SIZE))
     }
 
-    init(given: [Int]) {
-        self.seed = UInt64(time(nil))
-        self.given = given
-        self.solved = given
-        self.history = []
-        loadHelperArrays()
+    convenience init(given: [Int]) {
+        self.init(given: given, solved: given)
     }
 
-    init(given: [Int], solved: [Int]) {
-        self.seed = UInt64(time(nil))
-        self.given = given
-        self.solved = solved
-        self.history = []
-        loadHelperArrays()
+    convenience init(given: [Int], solved: [Int]) {
+        self.init(given: given, solved: solved, history: [])
+    }
+
+    convenience init(qqwing: QQWing) {
+        self.init(given: qqwing.getPuzzle())
+        self.seed = qqwing.seed
+        switch qqwing.getDifficultyAsString() {
+        case "Easy":
+            self.difficulty = "Easy"
+        case "Intermediate":
+            self.difficulty = "Medium"
+        case "Expert":
+            self.difficulty = "Hard"
+        default:
+            break
+        }
     }
 
     init(given: [Int], solved: [Int], history: [HistoryItem]) {
@@ -110,6 +113,7 @@ class Sudoku: Codable {
         self.given = given
         self.solved = solved
         self.history = history
+        clearIllegalValues()
         loadHelperArrays()
     }
 
@@ -120,6 +124,7 @@ class Sudoku: Codable {
         self.solved = try container.decode(Array<Int>.self, forKey: .solved)
         self.history = try container.decode(Array<HistoryItem>.self, forKey: .history)
         self.seed = try container.decode(UInt64.self, forKey: .seed)
+        clearIllegalValues()
         loadHelperArrays()
     }
 
@@ -141,6 +146,16 @@ class Sudoku: Codable {
         }
 
         self.init(given: sudoku)
+    }
+
+    func clearIllegalValues() {
+        for i in (0..<Globals.BOARD_SIZE) {
+            if self.given[i] < 0 || self.given[i] > Globals.ROW_SIZE { self.given[i] = 0 }
+            if self.solved[i] < 0 || self.solved[i] > Globals.ROW_SIZE { self.solved[i] = 0 }
+        }
+        for (i, v) in self.history.enumerated() {
+            if v.number < 0 || v.number > Globals.ROW_SIZE { self.history.remove(at: i) }
+        }
     }
 
     // Initialize our helper arrays
@@ -332,7 +347,7 @@ func sudokuUtils(undoMoveFrom sudoku: Sudoku) -> Bool {
 
 // Add a new move to the puzzle. Return true if successful.
 func sudokuUtils(addMove move: Sudoku.HistoryItem, to sudoku: Sudoku) -> Bool {
-    if sudoku.given[move.position] == 0 && sudoku.solved[move.position] != move.number {
+    if move.number >= 0 && move.number <= Globals.ROW_SIZE && sudoku.given[move.position] == 0 && sudoku.solved[move.position] != move.number {
         sudoku.solved[move.position] = move.number
         sudoku.history.append(move)
         return true

@@ -36,3 +36,8 @@ func loadCurrentGame() -> Sudoku? {
     debugPrint("Loading failed!")
     return nil
 }
+
+func clearSavedGame() {
+    let defaults = UserDefaults.standard
+    defaults.removeObject(forKey: defaultsKeys.CURRENT_GAME)
+}

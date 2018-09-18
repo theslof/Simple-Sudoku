@@ -21,6 +21,7 @@ class GameBoardVC: UIViewController {
     var sudoku: Sudoku = Sudoku()
     var locked: [Bool] = Array(repeating: false, count: Globals.BOARD_SIZE)
     var selectedCell: IndexPath? = nil
+    var isSolved = false
 
     // MARK: - Outlets
     @IBOutlet weak var gameBoardCV: UICollectionView!
@@ -75,6 +76,9 @@ class GameBoardVC: UIViewController {
         }
 
         buttonUndo.isEnabled = sudokuUtils(hasMovesInHistory: sudoku)
+        if (sudoku.isSolved()) {
+            gameOver()
+        }
     }
 
     /**
@@ -103,6 +107,7 @@ class GameBoardVC: UIViewController {
             } else {
                 if(sudoku.isSolved()) {
                     // Sudoku is solved, inform the player
+                    gameOver()
                 }
             }
         }
@@ -119,16 +124,65 @@ class GameBoardVC: UIViewController {
         }
     }
 
+    //TODO: Implement conflicts
+    func getHint() {
+        debugPrint("getHint():")
+        let qq: QQWing = QQWing(sudoku.seed)
+        let _ = qq.setPuzzle(sudoku.solved)
+        qq.setRecordHistory(true)
+        let _ = qq.solve()
+        if (qq.isSolved()) {
+            debugPrint("Solution found!")
+            // Solution found
+            // Do something with qq.getSolveHistory().first
+            for solution in qq.getSolveInstructions() {
+                let legal = [LogType.SINGLE, LogType.HIDDEN_SINGLE_COLUMN, LogType.HIDDEN_SINGLE_ROW, LogType.HIDDEN_SINGLE_ROW, LogType.HIDDEN_SINGLE_SECTION, LogType.HIDDEN_SINGLE_SECTION, LogType.GUESS]
+                if legal.contains(solution.type) {
+                    if let old = selectedCell {
+                        (gameBoardCV.cellForItem(at: old) as! SudokuCell).selectCell(false)
+                    }
+
+                    debugPrint("Selecting cell at \(solution.position)")
+                    selectedCell = IndexPath(row: solution.position, section: 0)
+
+                    if let selectedCell = selectedCell, let cell = gameBoardCV.cellForItem(at: selectedCell) as? SudokuCell {
+                        print("Found cell")
+                        cell.selectCell(true)
+                    }
+
+                    break
+                }
+            }
+        } else {
+            // No solution found, puzzle is not solvable. Find and mark conflicts
+        }
+    }
+
+    func gameOver() {
+        isSolved = true
+        clearSavedGame()
+        let ac: UIAlertController = UIAlertController(title: "Solved!", message: "You found the solution!", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        ac.addAction(UIAlertAction(title: "Exit", style: .destructive, handler: { _ in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(ac, animated: true)
+    }
+
     //MARK: - Actions
 
     @IBAction func buttonTapped(_ sender: UIButton) {
+        if isSolved { return }
 
         switch sender.tag {
         case 0...9:
-            //Pressed a number
+            // Pressed a number
             setSelectedCell(to: sender.tag)
+        case 10:
+            // Pressed Hint
+                getHint()
         case 11:
-            //Pressed Undo button
+            // Pressed Undo button
             undoMove()
         default:
             //Unknown button pressed
@@ -168,6 +222,8 @@ extension GameBoardVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             let oldCell = collectionView.cellForItem(at: selectedCell!) as! SudokuCell
             oldCell.selectCell(false)
         }
+
+        if isSolved { return }
         let cell = collectionView.cellForItem(at: indexPath) as! SudokuCell
         cell.selectCell(true)
         selectedCell = indexPath

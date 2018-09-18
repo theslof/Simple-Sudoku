@@ -436,9 +436,10 @@
                                                             <action selector="buttonTapped:" destination="hve-zl-9R6" eventType="touchUpInside" id="zTG-QB-cOC"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-Hu-Zbo" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
+                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzM-Hu-Zbo" customClass="UIButtonRounded" customModule="Simple_Sudoku" customModuleProvider="target">
                                                         <rect key="frame" x="234" y="0.0" width="70" height="51"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <state key="normal" title="Hint"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="10"/>
