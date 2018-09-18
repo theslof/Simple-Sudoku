@@ -11,10 +11,7 @@ import UIKit
 /**
  View Controller for the game board view.
 
- - TODO:
-    - Track puzzle completion, inform user of success
-    - Add timer?
-    - Optimization of solver
+ - TODO: Add timer?
  */
 class GameBoardVC: UIViewController {
     // MARK: - Variables
@@ -35,6 +32,9 @@ class GameBoardVC: UIViewController {
         buttonUndo.isEnabled = false
 
         loadSudoku()
+
+        addGame(seed: String(sudoku.seed))
+        saveGame(sudoku: sudoku)
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,7 +100,7 @@ class GameBoardVC: UIViewController {
             buttonUndo.isEnabled = sudokuUtils(hasMovesInHistory: sudoku)
             selectedCell = nil
             gameBoardCV.reloadData()
-            saveCurrentGame(sudoku: sudoku)
+            saveGame(sudoku: sudoku)
 
             if(!sudoku.isLegal()) {
                 // Sudoku does not conform to rules, ie. the player made an illegal move.
@@ -120,7 +120,7 @@ class GameBoardVC: UIViewController {
             // We successfully undid a move, update UI and save the data
             buttonUndo.isEnabled = sudokuUtils(hasMovesInHistory: sudoku)
             gameBoardCV.reloadData()
-            saveCurrentGame(sudoku: sudoku)
+            saveGame(sudoku: sudoku)
         }
     }
 
@@ -175,7 +175,7 @@ class GameBoardVC: UIViewController {
 
     func gameOver() {
         isSolved = true
-        clearSavedGame()
+        clearSavedGameFor(seed: String(sudoku.seed))
         let ac: UIAlertController = UIAlertController(title: "Solved!", message: "You found the solution!", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         ac.addAction(UIAlertAction(title: "Exit", style: .destructive, handler: { _ in

@@ -45,8 +45,10 @@ class MainVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        let games: [String] = loadGames()
         
-        if let currentGame: Sudoku = loadCurrentGame() {
+        if let seed = games.first, let currentGame: Sudoku = loadGameFor(seed: seed) {
             debugPrint("Successfully loaded game data!")
             canContinue = true
             self.currentGame = currentGame
@@ -64,6 +66,7 @@ class MainVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "continueSegue":
+            // TODO: Implement list of all unsolved games
             if let view = segue.destination as? GameBoardVC {
                 view.sudoku = currentGame ?? Sudoku()
             }
