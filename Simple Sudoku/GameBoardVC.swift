@@ -124,20 +124,37 @@ class GameBoardVC: UIViewController {
         }
     }
 
-    //TODO: Implement conflicts
     func getHint() {
         debugPrint("getHint():")
         let qq: QQWing = QQWing(sudoku.seed)
-        let _ = qq.setPuzzle(sudoku.solved)
+        let _ = qq.setPuzzle(sudoku.given)
         qq.setRecordHistory(true)
         let _ = qq.solve()
-        if (qq.isSolved()) {
+        var hasErrors = false
+
+        for (i, correct) in qq.getSolution().enumerated() {
+            if locked[i] || sudoku.solved[i] == 0 {
+                continue
+            }
+
+            print("Solved: \(sudoku.solved[i]), correct: \(correct)")
+            if sudoku.solved[i] != correct {
+                hasErrors = true
+                let errorCell = IndexPath(row: i, section: 0)
+
+                if let cell = gameBoardCV.cellForItem(at: errorCell) as? SudokuCell {
+                    cell.setError(true)
+                }
+            }
+        }
+
+        if (!hasErrors && qq.isSolved()) {
             debugPrint("Solution found!")
             // Solution found
             // Do something with qq.getSolveHistory().first
             for solution in qq.getSolveInstructions() {
                 let legal = [LogType.SINGLE, LogType.HIDDEN_SINGLE_COLUMN, LogType.HIDDEN_SINGLE_ROW, LogType.HIDDEN_SINGLE_ROW, LogType.HIDDEN_SINGLE_SECTION, LogType.HIDDEN_SINGLE_SECTION, LogType.GUESS]
-                if legal.contains(solution.type) {
+                if !locked[solution.position] && sudoku.solved[solution.position] == 0 && legal.contains(solution.type) {
                     if let old = selectedCell {
                         (gameBoardCV.cellForItem(at: old) as! SudokuCell).selectCell(false)
                     }
@@ -153,8 +170,6 @@ class GameBoardVC: UIViewController {
                     break
                 }
             }
-        } else {
-            // No solution found, puzzle is not solvable. Find and mark conflicts
         }
     }
 

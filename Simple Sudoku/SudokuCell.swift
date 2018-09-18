@@ -18,6 +18,7 @@ class SudokuCell: UICollectionViewCell {
     static let defaultColor: CGColor = UIColor.white.cgColor
     static let lockedColor: CGColor = UIColor.paleGray.cgColor
     static let selectedColor: CGColor = UIColor.paleBlue.cgColor
+    static let errorColor: CGColor = UIColor.red.cgColor
 
     // Is the cell locked (ie. has a starting value and should not be changed by the player)
     private var locked: Bool = false {
@@ -33,6 +34,7 @@ class SudokuCell: UICollectionViewCell {
     
     // Is the cell selected (ie. highlighted by the player)
     private var cell_selected: Bool = false
+    private var cellHasError: Bool = false
         
     
     //MARK: - Functions
@@ -42,6 +44,8 @@ class SudokuCell: UICollectionViewCell {
             self.layer.backgroundColor = SudokuCell.lockedColor
         } else if (cell_selected) {
             self.layer.backgroundColor = SudokuCell.selectedColor
+        } else if (cellHasError) {
+            self.layer.backgroundColor = SudokuCell.errorColor
         } else {
             self.layer.backgroundColor = SudokuCell.defaultColor
         }
@@ -55,14 +59,21 @@ class SudokuCell: UICollectionViewCell {
         
         locked = state
     }
-    
+
     func selectCell(_ state: Bool) {
         if (!locked) {
             cell_selected = state
             updateColor()
         }
     }
-    
+
+    func setError(_ state: Bool) {
+        if (!locked) {
+            cellHasError = state
+            updateColor()
+        }
+    }
+
     func setNumber(to num: Int) {
         self.cellLabel.text = num != 0 ? String(num) : ""
     }
@@ -70,6 +81,7 @@ class SudokuCell: UICollectionViewCell {
     override func prepareForReuse() {
         locked = false
         cell_selected = false
+        cellHasError = false
         self.cellLabel.text = ""
         updateColor()
     }
