@@ -33,6 +33,7 @@ class GameBoardVC: UIViewController {
 
         loadSudoku()
 
+        // Save the sudoku puzzle to memory
         addGame(seed: String(sudoku.seed))
         saveGame(sudoku: sudoku)
     }
@@ -113,7 +114,7 @@ class GameBoardVC: UIViewController {
         }
     }
 
-    // Undo the last move made
+    /// Undo the last move made
     func undoMove() {
         // Try to undo a move
         if sudokuUtils(undoMoveFrom: sudoku) {
@@ -124,6 +125,7 @@ class GameBoardVC: UIViewController {
         }
     }
 
+    /// Check the puzzle and highlight the next best move, or highlight any errors
     func getHint() {
         debugPrint("getHint():")
         let qq: QQWing = QQWing(sudoku.seed)
@@ -132,6 +134,7 @@ class GameBoardVC: UIViewController {
         let _ = qq.solve()
         var hasErrors = false
 
+        // First we check for errors and highlight them as we find them
         for (i, correct) in qq.getSolution().enumerated() {
             if locked[i] || sudoku.solved[i] == 0 {
                 continue
@@ -148,6 +151,7 @@ class GameBoardVC: UIViewController {
             }
         }
 
+        // If there are no errors and we have a solution, highlight the best move
         if (!hasErrors && qq.isSolved()) {
             debugPrint("Solution found!")
             // Solution found
@@ -173,12 +177,14 @@ class GameBoardVC: UIViewController {
         }
     }
 
+    /// The sudoku is solved; lock down the board, remove the save data from memory and display a message to the user.
     func gameOver() {
         isSolved = true
         clearSavedGameFor(seed: String(sudoku.seed))
         let ac: UIAlertController = UIAlertController(title: "Solved!", message: "You found the solution!", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         ac.addAction(UIAlertAction(title: "Exit", style: .destructive, handler: { _ in
+            // The user pressed Exit, so we pop the last view controller and navigate away
             self.navigationController?.popViewController(animated: true)
         }))
         self.present(ac, animated: true)

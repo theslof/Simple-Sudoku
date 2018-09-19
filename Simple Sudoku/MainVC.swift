@@ -40,19 +40,21 @@ class MainVC: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         // Uncomment the following row to clear the saved game data at launch
-        //UserDefaults.standard.removeObject(forKey: defaultsKeys.CURRENT_GAME)
+        //clearAllSavedGames()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         let games: [String] = loadGames()
-        
+
         if let seed = games.first, let currentGame: Sudoku = loadGameFor(seed: seed) {
+            // If we successfully loaded a game from memory...
             debugPrint("Successfully loaded game data!")
             canContinue = true
             self.currentGame = currentGame
         } else {
+            //...or if we failed to do so:
             debugPrint("Failed to load save game data!")
             canContinue = false
         }

@@ -39,22 +39,38 @@ class SudokuCell: UICollectionViewCell {
         
     
     //MARK: - Functions
-    
+
     private func updateColor() {
+        updateColor(animated: false)
+    }
+
+    private func updateColor(animated: Bool) {
+        var newBgColor = SudokuCell.defaultColor
+        var newTextColor = SudokuCell.defaultTextColor
         if (locked) {
-            self.layer.backgroundColor = SudokuCell.lockedColor
+            newBgColor = SudokuCell.lockedColor
         } else if (cell_selected) {
-            self.layer.backgroundColor = SudokuCell.selectedColor
+            newBgColor = SudokuCell.selectedColor
         } else {
-            self.layer.backgroundColor = SudokuCell.defaultColor
+            newBgColor = SudokuCell.defaultColor
         }
 
         if (cellHasError) {
-            self.cellLabel.textColor = SudokuCell.errorTextColor
+            newTextColor = SudokuCell.errorTextColor
         } else {
-            self.cellLabel.textColor = SudokuCell.defaultTextColor
+            newTextColor = SudokuCell.defaultTextColor
         }
-}
+
+        if animated {
+            UIView.animate(withDuration: 0.20) {
+                self.layer.backgroundColor = newBgColor
+                self.cellLabel.textColor = newTextColor
+            }
+        } else {
+            self.layer.backgroundColor = newBgColor
+            self.cellLabel.textColor = newTextColor
+        }
+    }
     
     func lockCell(_ state: Bool) {
         //If the cell is set as selected and we're about to lock it we need to unselect it first
@@ -68,14 +84,14 @@ class SudokuCell: UICollectionViewCell {
     func selectCell(_ state: Bool) {
         if (!locked) {
             cell_selected = state
-            updateColor()
+            updateColor(animated: true)
         }
     }
 
     func setError(_ state: Bool) {
         if (!locked) {
             cellHasError = state
-            updateColor()
+            updateColor(animated: true)
         }
     }
 

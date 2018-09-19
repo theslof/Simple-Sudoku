@@ -35,7 +35,6 @@ class Sudoku: Codable {
     private var cols: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
     private var secs: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
     private var randomOrder: [Int] = Array(0..<Globals.BOARD_SIZE)
-
     static let rowIndices: [Int] = [ 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                      1, 1, 1, 1, 1, 1, 1, 1, 1,
                                      2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -63,7 +62,6 @@ class Sudoku: Codable {
                                      6, 6, 6, 7, 7, 7, 8, 8, 8,
                                      6, 6, 6, 7, 7, 7, 8, 8, 8,
                                      6, 6, 6, 7, 7, 7, 8, 8, 8 ]
-    //var seed: UInt64
 
     struct HistoryItem: Codable {
         var position: Int
@@ -81,18 +79,22 @@ class Sudoku: Codable {
     // MARK: - Initializers
     //######################
 
+    /// Initialize an empty sudoku
     convenience init() {
         self.init(given: Array(repeating: 0, count: Globals.BOARD_SIZE))
     }
 
+    /// Initialize a sudoku from only given values
     convenience init(given: [Int]) {
         self.init(given: given, solved: given)
     }
 
+    /// Initialize a sudoku from both given and solved values
     convenience init(given: [Int], solved: [Int]) {
         self.init(given: given, solved: solved, history: [])
     }
 
+    /// Initialize a sudoku from a QQWing object
     convenience init(qqwing: QQWing) {
         self.init(given: qqwing.getPuzzle())
         self.seed = qqwing.seed
@@ -108,15 +110,15 @@ class Sudoku: Codable {
         }
     }
 
+    /// Initialize the sudoku from arrays of given, solved and history
     init(given: [Int], solved: [Int], history: [HistoryItem]) {
-        self.seed = UInt64(time(nil))
+        self.seed = randomSeed
         self.given = given
         self.solved = solved
         self.history = history
         clearIllegalValues()
         loadHelperArrays()
     }
-
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -128,7 +130,7 @@ class Sudoku: Codable {
         loadHelperArrays()
     }
 
-    // Initialize the sudoku from a string
+    /// Initialize the sudoku from a string
     convenience init(from puzzleString: String) {
         if (puzzleString.count > Globals.BOARD_SIZE) {
             fatalError("Error: Sudoku size too large")
@@ -148,6 +150,7 @@ class Sudoku: Codable {
         self.init(given: sudoku)
     }
 
+    /// Check the puzzle and remove any illegal values.
     func clearIllegalValues() {
         for i in (0..<Globals.BOARD_SIZE) {
             if self.given[i] < 0 || self.given[i] > Globals.ROW_SIZE { self.given[i] = 0 }
@@ -173,7 +176,7 @@ class Sudoku: Codable {
     // MARK: -Manipulation
     //#####################
 
-    // Attempt to add a legal move at specified cell. Returns false if it's illegal.
+    /// Attempt to add a legal move at specified cell. Returns false if it's illegal.
     func addLegal(move: HistoryItem, log: Bool) -> Bool {
         if ( rows[Sudoku.rowIndices[move.position]][move.number - 1] > 0 ||
              cols[Sudoku.colIndices[move.position]][move.number - 1] > 0 ||
@@ -185,7 +188,12 @@ class Sudoku: Codable {
         return true
     }
 
-    // Forcefully add a move at the specified cell, adding it to move history if log is true
+    /**
+     * Forcefully add a move at the specified cell
+     * - parameters:
+     *   - move: The move in the form of a HistoryItem
+     *   - log: Add the move to move history if true
+     */
     func add(move: HistoryItem, log: Bool){
         // First we want to update the helper arrays:
         let old = self.solved[move.position]
@@ -215,12 +223,14 @@ class Sudoku: Codable {
     * Solver *
     *********/
 
-    // Solve the puzzle without specifying a seed
+    /// Solve the puzzle without specifying a seed. When used on an empty Sudoku, it generates a solved one.
+    @available(*, deprecated, message: "Use the included QQWing solver instead")
     func solve() -> Int {
-        return self.solve(withRandomSeed: UInt64(time(nil)))
+        return self.solve(withRandomSeed: randomSeed)
     }
 
-    // Solve the puzzle with the supplied seed for the random generator
+    /// Solve the puzzle with the supplied seed for the random generator. When used on an empty Sudoku, it generates a solved one.
+    @available(*, deprecated, message: "Use the included QQWing solver instead")
     func solve(withRandomSeed seed: UInt64) -> Int {
         let rs = GKMersenneTwisterRandomSource()
         rs.seed = seed
@@ -276,7 +286,7 @@ class Sudoku: Codable {
         self.solve(randomSource: rs, next: i+1)
     }
 
-    // Shuffle the array using the supplied random source
+    /// Shuffle the array using the supplied random source
     func shuffle(array: [Int], randomSource rs: GKMersenneTwisterRandomSource) -> [Int] {
         var original = array
         var shuffled: [Int] = []
@@ -289,14 +299,19 @@ class Sudoku: Codable {
         return shuffled
     }
 
-    // Check if the puzzle is solved. If the .solved array does not contain 0 it has no unknowns and is solved.
+    /*********
+    * Checks *
+    *********/
+
+    /// Returns true if the puzzle is solved.
     func isSolved() -> Bool {
+        // If the .solved array does not contain 0 it has no unknowns and is solved.
         return !self.solved.contains(0)
     }
 
-    // Check if the puzzle is legal, ie. has no duplicates in any row, column or section. Thanks to our helper arrays
-    // we can simply check that no row/cel/sec has more than one of each value.
+    /// Check if the puzzle is legal, ie. has no duplicates in any row, column or section.
     func isLegal() -> Bool {
+        // Thanks to our helper arrays we can simply check that no row/cel/sec has more than one of each value.
         for i in 0..<Globals.ROW_SIZE {
             for j in 0..<Globals.ROW_SIZE {
                 if self.rows[i][j] > 1 || self.cols[i][j] > 1 || self.secs[i][j] > 1 {
@@ -313,22 +328,22 @@ class Sudoku: Codable {
 // Utilities
 //###########
 
-// Return the row that matches the cell number
+/// Return the row that matches the cell number
 func sudokuUtils(findRowForCell cell: Int) -> Int {
     return Sudoku.rowIndices[cell]
 }
 
-// Return the column that matches the cell number
+/// Return the column that matches the cell number
 func sudokuUtils(findColForCell cell: Int) -> Int {
     return Sudoku.colIndices[cell]
 }
 
-// Return the section that matches the cell number
+/// Return the section that matches the cell number
 func sudokuUtils(findSecForCell cell: Int) -> Int {
     return Sudoku.secIndices[cell]
 }
 
-// Undo latest move from the specified sudoku puzzle. Returns true if successful.
+/// Undo latest move from the specified sudoku puzzle. Returns true if successful.
 func sudokuUtils(undoMoveFrom sudoku: Sudoku) -> Bool {
     // Try to pop last history item:
     if let move = sudoku.history.popLast() {
@@ -345,7 +360,7 @@ func sudokuUtils(undoMoveFrom sudoku: Sudoku) -> Bool {
     return false
 }
 
-// Add a new move to the puzzle. Return true if successful.
+/// Add a new move to the puzzle. Return true if successful.
 func sudokuUtils(addMove move: Sudoku.HistoryItem, to sudoku: Sudoku) -> Bool {
     if move.number >= 0 && move.number <= Globals.ROW_SIZE && sudoku.given[move.position] == 0 && sudoku.solved[move.position] != move.number {
         sudoku.solved[move.position] = move.number
@@ -355,7 +370,7 @@ func sudokuUtils(addMove move: Sudoku.HistoryItem, to sudoku: Sudoku) -> Bool {
     return false
 }
 
-// Check if we have any moves in our move history.
+/// Check if we have any moves in our move history.
 func sudokuUtils(hasMovesInHistory sudoku: Sudoku) -> Bool {
     return !sudoku.history.isEmpty
 }
@@ -365,4 +380,10 @@ func debugPrint(_ message: String) {
     if Globals.DEBUG_PRINT_ENABLED {
         print(message)
     }
+}
+
+/// Contains a new random seed, generated every time it's used
+var randomSeed: UInt64 {
+    // Generate from two random UInt32: Bitshift the first 32 to the left and OR it with the second.
+    return UInt64(arc4random()) << 32 | UInt64(arc4random())
 }

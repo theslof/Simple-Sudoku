@@ -260,6 +260,11 @@ public class QQWing {
     private var printStyle: PrintStyle = PrintStyle.READABLE
 
     /**
+    * The symmetry of the puzzle
+    */
+    private(set) var symmetry: Symmetry = Symmetry.NONE
+
+    /**
      * Create a new Sudoku board
      * If a seed is supplied we should expect the same outcome every time
      */
@@ -450,8 +455,8 @@ public class QQWing {
         return generatePuzzleSymmetry(Symmetry.NONE);
     }
 
-    public func generatePuzzleSymmetry(_ symmetry: Symmetry) -> Bool {
-        var symmetry = symmetry
+    public func generatePuzzleSymmetry(_ sym: Symmetry) -> Bool {
+        symmetry = sym
         if (symmetry == Symmetry.RANDOM) {
             symmetry = QQWing.getRandomSymmetry(random)
         }

@@ -62,3 +62,9 @@ func clearSavedGameFor(seed: String) {
         defaults.set(games, forKey: defaultsKeys.CURRENT_GAMES)
     }
 }
+
+func clearAllSavedGames() {
+    for game in loadGames() {
+        clearSavedGameFor(seed: game)
+    }
+}

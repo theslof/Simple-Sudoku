@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ View Controller for setting up a new game.
+ */
 class NewGameVC: UIViewController {
 
     // MARK: - Outlets
@@ -45,20 +48,27 @@ class NewGameVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    /// Generate a new puzzle using a seed and the QQWing generator
     func generatePuzzle(from seed: UInt64) -> Sudoku{
         let qq = QQWing(seed)
         let _ = qq.generatePuzzleSymmetry(Symmetry.RANDOM)
-        return Sudoku(given: qq.getPuzzle())
+        return Sudoku(qqwing: qq)
     }
 
+    /// Generate a new puzzle from a selected difficulty and symmetry
     func generatePuzzle(difficulty: Difficulty, symmetry: Symmetry) -> Sudoku {
-        let qq = QQWing()
+        var qq = QQWing()
         qq.setRecordHistory(true)
         repeat {
-            let _ = qq.generatePuzzleSymmetry(symmetry)
+            qq = QQWing(randomSeed)
+            qq.setRecordHistory(true)
+            // Set a new seed and attempt to create a puzzle that match both symmetry and difficulty.
+            // If the result has another difficulty or symmetry we need to generate a new seed and try again,
+            // so that we can always get the same puzzle by simply supplying the same seed.
+            let _ = qq.generatePuzzleSymmetry(Symmetry.RANDOM)
             let _ = qq.solve()
-        } while (qq.getDifficulty() != difficulty)
-        return Sudoku(given: qq.getPuzzle())
+        } while (qq.getDifficulty() != difficulty && qq.symmetry != symmetry)
+        return Sudoku(qqwing: qq)
     }
 
 
@@ -89,6 +99,7 @@ class NewGameVC: UIViewController {
             } else {
                 self.sudoku = self.generatePuzzle(difficulty: self.difficulty, symmetry: self.symmetry)
             }
+            debugPrint("Generated a sudoku with seed: \(self.sudoku?.seed)")
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "startGameSegue", sender: self)
                 self.outletIndicator.stopAnimating()
