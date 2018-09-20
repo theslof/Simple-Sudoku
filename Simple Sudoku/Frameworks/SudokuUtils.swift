@@ -303,6 +303,109 @@ class Sudoku: Codable {
     * Checks *
     *********/
 
+    struct Error {
+        let first: Int
+        let second: Int
+        let type: ErrorType
+
+        enum ErrorType {
+            case row
+            case column
+            case section
+        }
+    }
+
+    func getErrors() -> [Sudoku.Error] {
+        var errors: [Sudoku.Error] = []
+
+        for i in 0..<Globals.ROW_SIZE {
+            for j in 0..<Globals.ROW_SIZE {
+                if rows[i][j] > 1 {
+                    // Conflict found on row i at value j
+                    errors.append(contentsOf: findConflictsIn(row: i))
+                }
+                if cols[i][j] > 1 {
+                    // Conflict found on column i at value j
+                    errors.append(contentsOf: findConflictsIn(col: i))
+                }
+                if secs[i][j] > 1 {
+                    // Conflict found on section i at value j
+                    errors.append(contentsOf: findConflictsIn(sec: i))
+                }
+            }
+        }
+
+        return errors
+    }
+
+    private func findConflictsIn(row i: Int) -> [Sudoku.Error] {
+        var errors: [Sudoku.Error] = []
+        let start = Sudoku.firstPosIn(row: i)
+        let row:[Int] = Array(solved[start..<start+Globals.ROW_SIZE])
+        debugPrint("Row \(i): \(row)")
+
+        for (a, b) in findConflictsIn(array: row) {
+            errors.append(Error(
+                    first: Sudoku.localToGlobal(row: i, offset: a),
+                    second: Sudoku.localToGlobal(row: i, offset: b), type: .row))
+        }
+
+        return errors
+    }
+
+    private func findConflictsIn(col i: Int) -> [Sudoku.Error] {
+        var errors: [Sudoku.Error] = []
+        var col:[Int] = []
+
+        for c in 0..<Globals.ROW_SIZE {
+            col.append(solved[Sudoku.localToGlobal(col: i, offset: c)])
+        }
+
+        debugPrint("Column \(i): \(col)")
+
+        for (a, b) in findConflictsIn(array: col) {
+            errors.append(Error(
+                    first: Sudoku.localToGlobal(col: i, offset: a),
+                    second: Sudoku.localToGlobal(col: i, offset: b), type: .column))
+        }
+
+        return errors
+    }
+
+    private func findConflictsIn(sec i: Int) -> [Sudoku.Error] {
+        var errors: [Sudoku.Error] = []
+        var sec:[Int] = []
+
+        for s in 0..<Globals.ROW_SIZE {
+            sec.append(solved[Sudoku.localToGlobal(sec: i, offset: s)])
+        }
+        debugPrint("Section \(i): \(sec)")
+
+        for (a, b) in findConflictsIn(array: sec) {
+            errors.append(Error(
+                    first: Sudoku.localToGlobal(sec: i, offset: a),
+                    second: Sudoku.localToGlobal(sec: i, offset: b), type: .section))
+        }
+
+        return errors
+    }
+
+    private func findConflictsIn(array: [Int]) -> [(Int, Int)] {
+        var errors: [(Int, Int)] = []
+
+        for i in 0..<array.count {
+            if array[i] == 0 { continue }
+            for j in (i+1)..<array.count {
+                if array[j] == 0 { continue }
+                if array[i] == array[j] {
+                    errors.append((i, j))
+                }
+            }
+        }
+
+        return errors
+    }
+
     /// Returns true if the puzzle is solved.
     func isSolved() -> Bool {
         // If the .solved array does not contain 0 it has no unknowns and is solved.
@@ -321,6 +424,36 @@ class Sudoku: Codable {
             }
         }
         return true
+    }
+
+    // Helpers
+
+    private static func firstPosIn(row: Int) -> Int {
+        return row * Globals.ROW_SIZE
+    }
+
+    private static func firstPosIn(col: Int) -> Int {
+        return col
+    }
+
+    private static func firstPosIn(sec: Int) -> Int {
+        let secRow = sec / Globals.SEC_WIDTH
+        let secCol = sec % Globals.SEC_WIDTH
+        return secRow * Globals.SEC_WIDTH * Globals.ROW_SIZE + secCol * Globals.SEC_WIDTH
+    }
+
+    private static func localToGlobal(row: Int, offset: Int) -> Int {
+        return firstPosIn(row: row) + offset
+    }
+
+    private static func localToGlobal(col: Int, offset: Int) -> Int {
+        return firstPosIn(col: col) + offset * Globals.ROW_SIZE
+    }
+
+    private static func localToGlobal(sec: Int, offset: Int) -> Int {
+        let offsetRow = offset / Globals.SEC_WIDTH
+        let offsetCol = offset % Globals.SEC_WIDTH
+        return firstPosIn(sec: sec) + offsetRow * Globals.ROW_SIZE + offsetCol
     }
 }
 
@@ -363,8 +496,7 @@ func sudokuUtils(undoMoveFrom sudoku: Sudoku) -> Bool {
 /// Add a new move to the puzzle. Return true if successful.
 func sudokuUtils(addMove move: Sudoku.HistoryItem, to sudoku: Sudoku) -> Bool {
     if move.number >= 0 && move.number <= Globals.ROW_SIZE && sudoku.given[move.position] == 0 && sudoku.solved[move.position] != move.number {
-        sudoku.solved[move.position] = move.number
-        sudoku.history.append(move)
+        sudoku.add(move: move, log: true)
         return true
     }
     return false

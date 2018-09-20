@@ -128,49 +128,40 @@ class GameBoardVC: UIViewController {
     /// Check the puzzle and highlight the next best move, or highlight any errors
     func getHint() {
         debugPrint("getHint():")
+        var hasErrors = false
+
+        // First we check for errors and highlight them as we find them
+        for error: Sudoku.Error in sudoku.getErrors() {
+            debugPrint("Error found: \(error)")
+            hasErrors = true
+
+            getCell(at: error.first)?.setError(true)
+            getCell(at: error.second)?.setError(true)
+
+            // TODO: Draw lines to show conflicts. Use Core Graphics, on a top layer
+            // UIView.layer = CAShapeLayer()
+            //
+
+        }
+
+        if hasErrors {
+            return
+        }
+
         let qq: QQWing = QQWing(sudoku.seed)
         let _ = qq.setPuzzle(sudoku.given)
         qq.setRecordHistory(true)
         let _ = qq.solve()
-        var hasErrors = false
-
-        // First we check for errors and highlight them as we find them
-        for (i, correct) in qq.getSolution().enumerated() {
-            if locked[i] || sudoku.solved[i] == 0 {
-                continue
-            }
-
-            print("Solved: \(sudoku.solved[i]), correct: \(correct)")
-            if sudoku.solved[i] != correct {
-                hasErrors = true
-                let errorCell = IndexPath(row: i, section: 0)
-
-                if let cell = gameBoardCV.cellForItem(at: errorCell) as? SudokuCell {
-                    cell.setError(true)
-                }
-            }
-        }
 
         // If there are no errors and we have a solution, highlight the best move
-        if (!hasErrors && qq.isSolved()) {
+        if qq.isSolved() {
             debugPrint("Solution found!")
             // Solution found
             // Do something with qq.getSolveHistory().first
             for solution in qq.getSolveInstructions() {
                 let legal = [LogType.SINGLE, LogType.HIDDEN_SINGLE_COLUMN, LogType.HIDDEN_SINGLE_ROW, LogType.HIDDEN_SINGLE_ROW, LogType.HIDDEN_SINGLE_SECTION, LogType.HIDDEN_SINGLE_SECTION, LogType.GUESS]
                 if !locked[solution.position] && sudoku.solved[solution.position] == 0 && legal.contains(solution.type) {
-                    if let old = selectedCell {
-                        (gameBoardCV.cellForItem(at: old) as! SudokuCell).selectCell(false)
-                    }
-
-                    debugPrint("Selecting cell at \(solution.position)")
-                    selectedCell = IndexPath(row: solution.position, section: 0)
-
-                    if let selectedCell = selectedCell, let cell = gameBoardCV.cellForItem(at: selectedCell) as? SudokuCell {
-                        print("Found cell")
-                        cell.selectCell(true)
-                    }
-
+                    selectCell(at: IndexPath(row: solution.position, section: 0))
                     break
                 }
             }
@@ -188,6 +179,26 @@ class GameBoardVC: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }))
         self.present(ac, animated: true)
+    }
+
+    private func getCell(at cell: Int) -> SudokuCell? {
+        return getCell(at: IndexPath(row: cell, section: 0))
+    }
+
+    private func getCell(at indexPath: IndexPath) -> SudokuCell? {
+        return gameBoardCV.cellForItem(at: indexPath) as? SudokuCell
+    }
+
+    private func selectCell(at indexPath: IndexPath) {
+        //Selected a cell. Deselect previously selected cell
+        if let selectedCell = selectedCell, let oldCell = getCell(at: selectedCell) {
+            oldCell.selectCell(false)
+        }
+
+        if isSolved { return }
+        let cell = getCell(at: indexPath)
+        cell?.selectCell(true)
+        selectedCell = indexPath
     }
 
     //MARK: - Actions
@@ -238,15 +249,6 @@ extension GameBoardVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //Selected a cell. Deselect previously selected cell
-        if selectedCell != nil {
-            let oldCell = collectionView.cellForItem(at: selectedCell!) as! SudokuCell
-            oldCell.selectCell(false)
-        }
-
-        if isSolved { return }
-        let cell = collectionView.cellForItem(at: indexPath) as! SudokuCell
-        cell.selectCell(true)
-        selectedCell = indexPath
+        selectCell(at: indexPath)
     }
 }
