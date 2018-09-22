@@ -124,6 +124,7 @@ class NewGameVC: UIViewController {
                 self.difficulty = .EXPERT
                 self.outletDifficulty.setTitle("Hard", for: .normal)
             }))
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(ac, animated: true)
         case 2:
             // Symmetry
@@ -148,6 +149,7 @@ class NewGameVC: UIViewController {
                 self.symmetry = .ROTATE180
                 self.outletSymmetry.setTitle("Rotate 180", for: .normal)
             }))
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(ac, animated: true)
         case 3:
             // Seed
