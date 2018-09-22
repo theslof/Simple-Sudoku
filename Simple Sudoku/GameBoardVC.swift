@@ -56,20 +56,18 @@ class GameBoardVC: UIViewController {
     - Author: Jonas Theslöf
 
     - parameter sud: The sudoku puzzle as a string of numbers
-
-    - TODO: Better error handling
     */
 
     func loadSudoku() {
         // Make sure that our Sudoku has the correct size for our board
         if (sudoku.solved.count != Globals.BOARD_SIZE) {
-            fatalError("Error: Sudoku puzzle does not conform to board size")
+            abortWith(message: "Error: Sudoku puzzle does not conform to board size")
         }
 
         // Make sure that each cell lies within accepted values...
         for (index, num) in sudoku.solved.enumerated() {
             if (num < 0 || num > Globals.ROW_SIZE) {
-                fatalError("Error: Sudoku cell value at position \(index) invalid! Was \(num)")
+                abortWith(message: "Error: Sudoku cell value at position \(index) invalid! Was \(num)")
             }
 
             // ...and lock cells with given values
@@ -80,6 +78,14 @@ class GameBoardVC: UIViewController {
         if (sudoku.isSolved()) {
             gameOver()
         }
+    }
+
+    private func abortWith(message: String) {
+        let ac = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: ":(", style: .destructive) { _ in
+            self.navigationController?.popToRootViewController(animated: true)
+         })
+        self.present(ac, animated: true)
     }
 
     /**
@@ -94,7 +100,7 @@ class GameBoardVC: UIViewController {
         }
 
         if (value < 0 || value > 9) {
-            fatalError("Error: Sudoku cell value at position \(index) invalid! Was \(value)")
+            abortWith(message: "Error: Sudoku cell value at position \(index) invalid! Was \(value)")
         }
 
         if sudokuUtils(addMove: Sudoku.HistoryItem(position: index, number: value), to: sudoku) {
