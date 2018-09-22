@@ -40,7 +40,15 @@ class ContinueTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gameInfoRow", for: indexPath)
 
-        cell.textLabel?.text = gameIndex[indexPath.row]
+        cell.detailTextLabel?.text = gameIndex[indexPath.row]
+
+        BQ {
+            if let metaData = loadMetaDataFor(seed: self.gameIndex[indexPath.row]) {
+                MQ {
+                    cell.textLabel?.text = "\(metaData.difficulty), \(metaData.solved)/81 solved"
+                }
+            }
+        }
 
         return cell
     }

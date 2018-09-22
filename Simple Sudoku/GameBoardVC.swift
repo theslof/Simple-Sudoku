@@ -176,7 +176,7 @@ class GameBoardVC: UIViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         ac.addAction(UIAlertAction(title: "Exit", style: .destructive, handler: { _ in
             // The user pressed Exit, so we pop the last view controller and navigate away
-            self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
         }))
         self.present(ac, animated: true)
     }

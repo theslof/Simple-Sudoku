@@ -25,6 +25,7 @@ class Sudoku: Codable {
     private(set) var guesses: Int = 0
     private(set) var seed: UInt64
     private(set) var difficulty: String = "Unknown"
+    private(set) var symmetry: String = "None"
     var given: [Int]
     var solved: [Int]
     var history: [HistoryItem]
@@ -73,6 +74,8 @@ class Sudoku: Codable {
         case solved
         case history
         case seed
+        case difficulty
+        case symmetry
     }
 
     //######################
@@ -108,6 +111,18 @@ class Sudoku: Codable {
         default:
             break
         }
+        switch qqwing.symmetry {
+        case Symmetry.ROTATE180:
+            self.symmetry = "Rotate 180"
+        case Symmetry.ROTATE90:
+            self.symmetry = "Rotate 90"
+        case Symmetry.FLIP:
+            self.symmetry = "Flip"
+        case Symmetry.MIRROR:
+            self.symmetry = "Mirror"
+        default:
+            break
+        }
     }
 
     /// Initialize the sudoku from arrays of given, solved and history
@@ -126,6 +141,8 @@ class Sudoku: Codable {
         self.solved = try container.decode(Array<Int>.self, forKey: .solved)
         self.history = try container.decode(Array<HistoryItem>.self, forKey: .history)
         self.seed = try container.decode(UInt64.self, forKey: .seed)
+        self.difficulty = try container.decode(String.self, forKey: .difficulty)
+        self.symmetry = try container.decode(String.self, forKey: .symmetry)
         clearIllegalValues()
         loadHelperArrays()
     }
@@ -406,6 +423,16 @@ class Sudoku: Codable {
         return errors
     }
 
+    func getProgress() -> Int {
+        var progress: Int = 0
+        for i in solved {
+            if i != 0 {
+                progress += 1
+            }
+        }
+        return progress
+    }
+
     /// Returns true if the puzzle is solved.
     func isSolved() -> Bool {
         // If the .solved array does not contain 0 it has no unknowns and is solved.
@@ -518,4 +545,12 @@ func debugPrint(_ message: String) {
 var randomSeed: UInt64 {
     // Generate from two random UInt32: Bitshift the first 32 to the left and OR it with the second.
     return UInt64(arc4random()) << 32 | UInt64(arc4random())
+}
+
+func BQ(_ block: @escaping ()->Void) {
+    DispatchQueue.global(qos: .default).async(execute: block)
+}
+
+func MQ(_ block: @escaping ()->Void) {
+    DispatchQueue.main.async(execute: block)
 }
