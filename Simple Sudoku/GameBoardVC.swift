@@ -21,6 +21,7 @@ class GameBoardVC: UIViewController {
     var isSolved = false
 
     // MARK: - Outlets
+    @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var gameBoardCV: UICollectionView!
     @IBOutlet weak var buttonUndo: UIButtonRounded!
 
@@ -99,6 +100,8 @@ class GameBoardVC: UIViewController {
             return
         }
 
+        clearErrorLayers()
+
         if (value < 0 || value > 9) {
             abortWith(message: "Error: Sudoku cell value at position \(index) invalid! Was \(value)")
         }
@@ -137,18 +140,10 @@ class GameBoardVC: UIViewController {
         var hasErrors = false
 
         // First we check for errors and highlight them as we find them
-        for error: Sudoku.Error in sudoku.getErrors() {
-            debugPrint("Error found: \(error)")
-            hasErrors = true
+        let errors = sudoku.getErrors()
+        hasErrors = !errors.isEmpty
 
-            getCell(at: error.first)?.setError(true)
-            getCell(at: error.second)?.setError(true)
-
-            // TODO: Draw lines to show conflicts. Use Core Graphics, on a top layer
-            // UIView.layer = CAShapeLayer()
-            //
-
-        }
+        drawConflictFor(errors: errors)
 
         if hasErrors {
             return
@@ -172,6 +167,82 @@ class GameBoardVC: UIViewController {
                 }
             }
         }
+    }
+
+    private func drawConflictFor(errors: [Sudoku.Error]) {
+        clearErrorLayers()
+
+        for error in errors {
+            guard let first: SudokuCell = getCell(at: error.first), let second: SudokuCell = getCell(at: error.second)
+                    else { continue }
+            first.setError(true)
+            second.setError(true)
+
+            drawCircleOn(layer: errorView.layer, cell: first)
+            drawCircleOn(layer: errorView.layer, cell: second)
+
+            drawLineBetweenCirclesOn(layer: errorView.layer, cell1: first, cell2: second)
+
+        }
+    }
+
+    private func clearErrorLayers() {
+        errorView.layer.sublayers?.forEach { sublayer in
+            sublayer.removeFromSuperlayer()
+        }
+    }
+
+    private func drawCircleOn(layer: CALayer, cell: SudokuCell) {
+        let sublayer = CAShapeLayer()
+        let radius = cell.frame.width * 0.5
+        let x = cell.frame.origin.x + radius
+        let y = cell.frame.origin.y + radius
+
+
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: x, y: y), radius: radius * 0.8, startAngle: CGFloat(0),
+                endAngle:CGFloat(Double.pi * 2), clockwise: true)
+
+        sublayer.path = circlePath.cgPath
+
+        sublayer.fillColor = UIColor.clear.cgColor
+        sublayer.strokeColor = UIColor.red.cgColor
+        sublayer.lineWidth = 2.0
+
+        layer.addSublayer(sublayer)
+    }
+
+    private func drawLineBetweenCirclesOn(layer: CALayer, cell1: SudokuCell, cell2: SudokuCell) {
+        let sublayer = CAShapeLayer()
+        var radius = CGFloat(cell1.frame.width * 0.5)
+        let x1 = cell1.frame.origin.x + radius
+        let y1 = cell1.frame.origin.y + radius
+        let x2 = cell2.frame.origin.x + radius
+        let y2 = cell2.frame.origin.y + radius
+        radius *= 0.8
+
+        let dx = x2 - x1
+        let dy = y2 - y1
+        // let distance = sqrtf(dx * dx + dy * dy) - Float(radius) * 2
+
+        let angle = atan2(dx, dy)
+
+        let ox1 = x1 + radius * sin(angle)
+        let ox2 = x2 - radius * sin(angle)
+        let oy1 = y1 + radius * cos(angle)
+        let oy2 = y2 - radius * cos(angle)
+
+
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: ox1, y: oy1))
+        path.addLine(to: CGPoint(x: ox2, y: oy2))
+
+        sublayer.path = path.cgPath
+
+        sublayer.fillColor = UIColor.clear.cgColor
+        sublayer.strokeColor = UIColor.red.cgColor
+        sublayer.lineWidth = 2.0
+
+        layer.addSublayer(sublayer)
     }
 
     /// The sudoku is solved; lock down the board, remove the save data from memory and display a message to the user.
