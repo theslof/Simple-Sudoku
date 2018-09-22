@@ -12,6 +12,15 @@ struct defaultsKeys {
     static let CURRENT_GAMES = "currentGames"
 }
 
+/*
+TODO: Add details to game index
+struct GameData {
+    let seed: String
+    let difficulty: String
+    let symmetry: String
+    let solved: Bool
+}
+*/
 func saveGame(sudoku: Sudoku){
     debugPrint("Trying to save game...")
     let defaults = UserDefaults.standard

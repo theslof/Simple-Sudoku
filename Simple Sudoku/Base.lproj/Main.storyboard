@@ -32,7 +32,7 @@
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                         <state key="normal" title="Continue"/>
                                         <connections>
-                                            <segue destination="hve-zl-9R6" kind="show" identifier="continueSegue" id="hQ8-Lm-1Kb"/>
+                                            <segue destination="PQx-0y-wfe" kind="show" id="Qg1-Gx-lyu"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-6t-TQR">
@@ -558,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CJA-fh-Lxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2655" y="527"/>
+            <point key="canvasLocation" x="3936" y="131"/>
         </scene>
         <!--Settings-->
         <scene sceneID="jwE-X5-bLh">
@@ -603,6 +603,46 @@
             </objects>
             <point key="canvasLocation" x="1778" y="828"/>
         </scene>
+        <!--ContinueTVC-->
+        <scene sceneID="5Xd-6C-z1K">
+            <objects>
+                <tableViewController id="PQx-0y-wfe" customClass="ContinueTVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="K9Q-dW-GZs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gameInfoRow" textLabel="klv-dy-cKe" style="IBUITableViewCellStyleDefault" id="x8L-tb-gGr">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x8L-tb-gGr" id="ocv-Kn-6B2">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="klv-dy-cKe">
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="PQx-0y-wfe" id="pxU-9p-Bct"/>
+                            <outlet property="delegate" destination="PQx-0y-wfe" id="aVR-oD-zgt"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="hve-zl-9R6" kind="show" identifier="continueGameSegue" id="1kK-Wa-jwL"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GDf-px-BuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2904" y="599"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ePl-6G-lHO">
             <objects>
@@ -626,6 +666,6 @@
         <image name="sudoku_board" width="682" height="682"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RJi-X6-HZ0"/>
+        <segue reference="1kK-Wa-jwL"/>
     </inferredMetricsTieBreakers>
 </document>

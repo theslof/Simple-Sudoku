@@ -67,11 +67,6 @@ class MainVC: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "continueSegue":
-            // TODO: Implement list of all unsolved games
-            if let view = segue.destination as? GameBoardVC {
-                view.sudoku = currentGame ?? Sudoku()
-            }
         default:
             super.prepare(for: segue, sender: sender)
         }
