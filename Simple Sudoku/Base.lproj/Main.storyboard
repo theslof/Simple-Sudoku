@@ -254,7 +254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uB-ZO-yn9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2655" y="-457"/>
+            <point key="canvasLocation" x="2250" y="-332"/>
         </scene>
         <!--Simple Sudoku-->
         <scene sceneID="aBr-GD-zKs">
@@ -558,35 +558,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CJA-fh-Lxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3936" y="131"/>
+            <point key="canvasLocation" x="3536" y="33"/>
         </scene>
         <!--Settings-->
         <scene sceneID="jwE-X5-bLh">
             <objects>
-                <tableViewController title="Settings" id="hZw-y5-38U" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="m4a-HW-V71">
+                <tableViewController title="Settings" id="hZw-y5-38U" customClass="SettingsTVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="m4a-HW-V71">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="tDB-es-4OA">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tDB-es-4OA" id="rAc-3w-G3L">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <sections>
+                            <tableViewSection id="XmP-Px-0Vn">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="tDB-es-4OA">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tDB-es-4OA" id="rAc-3w-G3L">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKl-tp-DCc">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                                    <color key="backgroundColor" red="1" green="0.40188280669999998" blue="0.27530693509999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Delete all data">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteDataBtn:" destination="hZw-y5-38U" eventType="touchUpInside" id="gZq-ys-CrN"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="WKl-tp-DCc" secondAttribute="bottom" id="OF6-t3-DUA"/>
+                                                <constraint firstAttribute="trailing" secondItem="WKl-tp-DCc" secondAttribute="trailing" id="StY-eb-YPj"/>
+                                                <constraint firstItem="WKl-tp-DCc" firstAttribute="top" secondItem="rAc-3w-G3L" secondAttribute="top" id="e3T-XT-nXt"/>
+                                                <constraint firstItem="WKl-tp-DCc" firstAttribute="leading" secondItem="rAc-3w-G3L" secondAttribute="leading" id="rkY-KM-DLV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
                         <connections>
                             <outlet property="dataSource" destination="hZw-y5-38U" id="ZOX-hZ-Jz0"/>
                             <outlet property="delegate" destination="hZw-y5-38U" id="G2D-xC-qML"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="deleteCell" destination="tDB-es-4OA" id="32E-3F-BsT"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xO7-Xl-s8i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1777" y="-738"/>
+            <point key="canvasLocation" x="1333" y="937"/>
         </scene>
         <!--About-->
         <scene sceneID="RWA-a6-mI8">
@@ -601,7 +626,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ca2-1g-ZWZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1778" y="828"/>
+            <point key="canvasLocation" x="641" y="938"/>
         </scene>
         <!--ContinueTVC-->
         <scene sceneID="5Xd-6C-z1K">
@@ -648,7 +673,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GDf-px-BuJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2904" y="599"/>
+            <point key="canvasLocation" x="2250" y="435"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ePl-6G-lHO">
@@ -673,6 +698,6 @@
         <image name="sudoku_board" width="682" height="682"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1kK-Wa-jwL"/>
+        <segue reference="RJi-X6-HZ0"/>
     </inferredMetricsTieBreakers>
 </document>
