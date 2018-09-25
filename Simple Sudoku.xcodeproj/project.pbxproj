@@ -25,11 +25,11 @@
 		07A35F4A21566C1500F1ABC5 /* ContinueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A35F4921566C1500F1ABC5 /* ContinueTVC.swift */; };
 		07A35F4C215692C600F1ABC5 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A35F4B215692C600F1ABC5 /* SettingsTVC.swift */; };
 		07A35F4E215A13FD00F1ABC5 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A35F4D215A13FD00F1ABC5 /* AboutVC.swift */; };
-		07BF45132147B5C8002B4FCB /* QQWing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90009A2C31A2A4C0452F1A /* QQWing.swift */; };
 		07BF45152147D881002B4FCB /* NewGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF45142147D881002B4FCB /* NewGameVC.swift */; };
 		AF900444C257C9CEDEBB1210 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AF9006719442D52D26B6393C /* README.md */; };
+		AF90056A577EE7AC5EA16F67 /* QQWing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9004052BDE65C9AE48D322 /* QQWing.swift */; };
+		AF9009CC1F39EA8E7943D02C /* QQWing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9004052BDE65C9AE48D322 /* QQWing.swift */; };
 		AF900A6895F6C8C10E8D6B3E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = AF9007DCC51318D0D991BCBB /* .gitignore */; };
-		AF900EB8F4513D6EB5851D04 /* QQWing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90009A2C31A2A4C0452F1A /* QQWing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +74,7 @@
 		07A35F4B215692C600F1ABC5 /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
 		07A35F4D215A13FD00F1ABC5 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		07BF45142147D881002B4FCB /* NewGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameVC.swift; sourceTree = "<group>"; };
-		AF90009A2C31A2A4C0452F1A /* QQWing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QQWing.swift; sourceTree = "<group>"; };
+		AF9004052BDE65C9AE48D322 /* QQWing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QQWing.swift; sourceTree = "<group>"; };
 		AF9006719442D52D26B6393C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AF9007DCC51318D0D991BCBB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,7 +144,6 @@
 				079EA5A4212EC140003B8296 /* MainVC.swift */,
 				079EA5D22137D441003B8296 /* SudokuCell.swift */,
 				079EA5D02137D3FA003B8296 /* GameBoardVC.swift */,
-				AF90009A2C31A2A4C0452F1A /* QQWing.swift */,
 			);
 			path = "Simple Sudoku";
 			sourceTree = "<group>";
@@ -189,6 +188,7 @@
 				079EA5E521395C8A003B8296 /* CustomColors.swift */,
 				079EA5E8213D54FC003B8296 /* SaveData.swift */,
 				079EA5EC213D599C003B8296 /* SudokuUtils.swift */,
+				AF9004052BDE65C9AE48D322 /* QQWing.swift */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -338,8 +338,8 @@
 				07A35F4C215692C600F1ABC5 /* SettingsTVC.swift in Sources */,
 				079EA5A3212EC140003B8296 /* AppDelegate.swift in Sources */,
 				079EA5D32137D441003B8296 /* SudokuCell.swift in Sources */,
-				AF900EB8F4513D6EB5851D04 /* QQWing.swift in Sources */,
 				AF900444C257C9CEDEBB1210 /* README.md in Sources */,
+				AF90056A577EE7AC5EA16F67 /* QQWing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,9 +347,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07BF45132147B5C8002B4FCB /* QQWing.swift in Sources */,
 				0773AD452142C98A001ECAE5 /* SudokuUtils.swift in Sources */,
 				079EA5B8212EC141003B8296 /* Simple_SudokuTests.swift in Sources */,
+				AF9009CC1F39EA8E7943D02C /* QQWing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -128,6 +128,7 @@ class GameBoardVC: UIViewController {
         // Try to undo a move
         if sudokuUtils(undoMoveFrom: sudoku) {
             // We successfully undid a move, update UI and save the data
+            clearErrorLayers()
             buttonUndo.isEnabled = sudokuUtils(hasMovesInHistory: sudoku)
             gameBoardCV.reloadData()
             saveGame(sudoku: sudoku)
@@ -178,11 +179,14 @@ class GameBoardVC: UIViewController {
             first.setError(true)
             second.setError(true)
 
+            drawLineBetweenCirclesOn(layer: errorView.layer, cell1: first, cell2: second)
+        }
+
+        for error in errors {
+            guard let first: SudokuCell = getCell(at: error.first), let second: SudokuCell = getCell(at: error.second)
+                    else { continue }
             drawCircleOn(layer: errorView.layer, cell: first)
             drawCircleOn(layer: errorView.layer, cell: second)
-
-            drawLineBetweenCirclesOn(layer: errorView.layer, cell1: first, cell2: second)
-
         }
     }
 
@@ -197,6 +201,7 @@ class GameBoardVC: UIViewController {
         let radius = cell.frame.width * 0.5
         let x = cell.frame.origin.x + radius
         let y = cell.frame.origin.y + radius
+        let color = errorColorFor(number: Int(cell.cellLabel.text!) ?? 0)
 
 
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: x, y: y), radius: radius * 0.8, startAngle: CGFloat(0),
@@ -205,7 +210,7 @@ class GameBoardVC: UIViewController {
         sublayer.path = circlePath.cgPath
 
         sublayer.fillColor = UIColor.clear.cgColor
-        sublayer.strokeColor = UIColor.red.cgColor
+        sublayer.strokeColor = color.cgColor
         sublayer.lineWidth = 2.0
 
         layer.addSublayer(sublayer)
@@ -218,6 +223,7 @@ class GameBoardVC: UIViewController {
         let y1 = cell1.frame.origin.y + radius
         let x2 = cell2.frame.origin.x + radius
         let y2 = cell2.frame.origin.y + radius
+        let color = errorColorFor(number: Int(cell1.cellLabel.text!) ?? 0).withAlphaComponent(0.5)
         radius *= 0.8
 
         let dx = x2 - x1
@@ -239,7 +245,7 @@ class GameBoardVC: UIViewController {
         sublayer.path = path.cgPath
 
         sublayer.fillColor = UIColor.clear.cgColor
-        sublayer.strokeColor = UIColor.red.cgColor
+        sublayer.strokeColor = color.cgColor
         sublayer.lineWidth = 2.0
 
         layer.addSublayer(sublayer)

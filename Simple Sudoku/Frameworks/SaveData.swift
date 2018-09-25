@@ -18,15 +18,20 @@ struct GameMetaData: Codable {
     let solved: Int
 }
 
+/// Save the Sudoku game data to UserDefaults
 func saveGame(sudoku: Sudoku){
     debugPrint("Trying to save game...")
     let defaults = UserDefaults.standard
+
+    // Try to save the game data
     if let data = try? PropertyListEncoder().encode(sudoku) {
         debugPrint("Encoding successful, attempting to save data: \(data)")
         defaults.set(data, forKey: String(sudoku.seed))
     } else {
         debugPrint("Error: Could not save sudoku")
     }
+
+    // Try to save the game meta data
     let metaData = GameMetaData(difficulty: sudoku.difficulty, symmetry: sudoku.symmetry, solved: sudoku.getProgress())
     if let data = try? PropertyListEncoder().encode(metaData) {
         debugPrint("Encoding successful, attempting to save meta data: \(data)")
@@ -36,6 +41,7 @@ func saveGame(sudoku: Sudoku){
     }
 }
 
+/// Load the saved game associated with the seed from UserDefaults
 func loadGameFor(seed: String) -> Sudoku? {
     debugPrint("Trying to load game: \(seed)")
     let defaults = UserDefaults.standard
@@ -50,6 +56,7 @@ func loadGameFor(seed: String) -> Sudoku? {
     return nil
 }
 
+/// Load the meta data associated with the seed from UserDefaults
 func loadMetaDataFor(seed: String) -> GameMetaData? {
     debugPrint("Trying to load metadata for: \(seed)")
     let defaults = UserDefaults.standard
@@ -64,12 +71,14 @@ func loadMetaDataFor(seed: String) -> GameMetaData? {
     return nil
 }
 
+/// Returns a list of seeds for all games saved in UserDefaults
 func loadGames() -> [String] {
     debugPrint("Fetching list of saved games...")
     let defaults = UserDefaults.standard
     return defaults.stringArray(forKey: defaultsKeys.CURRENT_GAMES) ?? [String]()
 }
 
+/// Add a new game to the saved games index, if it does not already exist
 func addGame(seed: String) {
     let defaults = UserDefaults.standard
     var games = loadGames()
@@ -80,6 +89,7 @@ func addGame(seed: String) {
     }
 }
 
+/// Delete the save data associated with the seed
 func clearSavedGameFor(seed: String) {
     let defaults = UserDefaults.standard
     defaults.removeObject(forKey: seed)
@@ -91,6 +101,7 @@ func clearSavedGameFor(seed: String) {
     }
 }
 
+/// Wipe all saved games
 func clearAllSavedGames() {
     for game in loadGames() {
         clearSavedGameFor(seed: game)

@@ -16,10 +16,10 @@ class SudokuCell: UICollectionViewCell {
     //MARK: - Members
     
     static let defaultColor: CGColor = UIColor.white.cgColor
-    static let lockedColor: CGColor = UIColor.paleGray.cgColor
-    static let selectedColor: CGColor = UIColor.paleBlue.cgColor
+    static let lockedColor: CGColor = UIColor.sudokuLocked.cgColor
+    static let selectedColor: CGColor = UIColor.sudokuHighlight.cgColor
     static let defaultTextColor: UIColor = UIColor.black
-    static let errorTextColor: UIColor = UIColor.red
+    static let errorTextColor: UIColor = UIColor.sudokuError
 
     // Is the cell locked (ie. has a starting value and should not be changed by the player)
     private var locked: Bool = false {

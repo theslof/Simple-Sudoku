@@ -237,86 +237,6 @@ class Sudoku: Codable {
     }
 
     /*********
-    * Solver *
-    *********/
-
-    /// Solve the puzzle without specifying a seed. When used on an empty Sudoku, it generates a solved one.
-    @available(*, deprecated, message: "Use the included QQWing solver instead")
-    func solve() -> Int {
-        return self.solve(withRandomSeed: randomSeed)
-    }
-
-    /// Solve the puzzle with the supplied seed for the random generator. When used on an empty Sudoku, it generates a solved one.
-    @available(*, deprecated, message: "Use the included QQWing solver instead")
-    func solve(withRandomSeed seed: UInt64) -> Int {
-        let rs = GKMersenneTwisterRandomSource()
-        rs.seed = seed
-        self.solutions = 0
-        self.guesses = 0
-        self.solution = nil
-        self.randomOrder = shuffle(array: Array(0..<Globals.BOARD_SIZE), randomSource: rs)
-        self.solve(randomSource: rs, next: 0)
-        return self.solutions
-    }
-
-    // The solver algorithm, recursively loops through each cell and checks all possible solutions.
-    // Only the latest found solution is saved.
-    private func solve(randomSource rs: GKMersenneTwisterRandomSource, next i: Int) {
-        if( i >= self.solved.count) {
-            // We have filled the entire sudoku, and it must be legal.
-
-            // Save the last found solution
-            self.solution = self.solved
-            // Increase solution counter by one
-            self.solutions += 1
-
-            // Backtrack
-            return
-        }
-        // Take next index from our array of a predefined random order:
-        let currentCell = self.randomOrder[i]
-        if( self.solved[currentCell] == 0 ) {
-            // The current cell is unsolved
-
-            // Try to solve the cell for number [1...9] in a random order:
-            let numbers: [Int] = shuffle(array: Array(1...Globals.ROW_SIZE), randomSource: rs)
-            for n in numbers {
-                // Since we're brute forcing everything's a guess, but we still track it
-                self.guesses += 1
-
-                // Try to add the move
-                if ( self.addLegal(move: HistoryItem(position: currentCell, number: n), log: false) ) {
-
-                    // Move was legal, solve next unsolved cell
-                    self.solve(randomSource: rs, next: i+1)
-
-                    // Clear the cell and check next value for a solution
-                    self.add(move: HistoryItem(position: currentCell, number: 0), log: false)
-                }
-            }
-
-            // No solution found for this cell, there must be an error earlier in the sudoku. Backtrack.
-            return
-        }
-
-        // This cell was already filled in, try the next cell instead
-        self.solve(randomSource: rs, next: i+1)
-    }
-
-    /// Shuffle the array using the supplied random source
-    func shuffle(array: [Int], randomSource rs: GKMersenneTwisterRandomSource) -> [Int] {
-        var original = array
-        var shuffled: [Int] = []
-        let rand = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: original.count)
-
-        while original.count > 0 {
-            shuffled.append(original.remove(at: rand.nextInt(upperBound: original.count)))
-        }
-
-        return shuffled
-    }
-
-    /*********
     * Checks *
     *********/
 
@@ -332,25 +252,32 @@ class Sudoku: Codable {
         }
     }
 
+    /// Returns a list of Errors in the sudoku
     func getErrors() -> [Sudoku.Error] {
         var errors: [Sudoku.Error] = []
 
-        for i in 0..<Globals.ROW_SIZE {
-            for j in 0..<Globals.ROW_SIZE {
-                if rows[i][j] > 1 {
-                    // Conflict found on row i at value j
-                    errors.append(contentsOf: findConflictsIn(row: i))
-                }
-                if cols[i][j] > 1 {
-                    // Conflict found on column i at value j
-                    errors.append(contentsOf: findConflictsIn(col: i))
-                }
-                if secs[i][j] > 1 {
-                    // Conflict found on section i at value j
-                    errors.append(contentsOf: findConflictsIn(sec: i))
-                }
+        // Find all rows where any number is represented more than once. Run them through findConflictsIn(row:) and
+        // append the errors to our error array.
+        errors.append(contentsOf: rows.enumerated().flatMap { (index, row) -> [Sudoku.Error] in
+            if (row.contains { i in i > 1 }) {
+                return findConflictsIn(row: index)
             }
-        }
+            return []
+        })
+
+        errors.append(contentsOf: cols.enumerated().flatMap { (index, col) -> [Sudoku.Error] in
+            if (col.contains { i in i > 1 }) {
+                return findConflictsIn(col: index)
+            }
+            return []
+        })
+
+        errors.append(contentsOf: secs.enumerated().flatMap { (index, sec) -> [Sudoku.Error] in
+            if (sec.contains { i in i > 1 }) {
+                return findConflictsIn(sec: index)
+            }
+            return []
+        })
 
         return errors
     }
@@ -416,6 +343,7 @@ class Sudoku: Codable {
                 if array[j] == 0 { continue }
                 if array[i] == array[j] {
                     errors.append((i, j))
+//                    break
                 }
             }
         }
@@ -553,4 +481,8 @@ func BQ(_ block: @escaping ()->Void) {
 
 func MQ(_ block: @escaping ()->Void) {
     DispatchQueue.main.async(execute: block)
+}
+
+func errorColorFor(number: Int) -> UIColor {
+    return UIColor(hue: CGFloat(number) / CGFloat(Globals.ROW_SIZE), saturation: 1, brightness: 1, alpha: 1)
 }
