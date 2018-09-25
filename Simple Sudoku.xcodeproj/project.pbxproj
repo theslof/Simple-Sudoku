@@ -24,6 +24,7 @@
 		079EA5ED213D599C003B8296 /* SudokuUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079EA5EC213D599C003B8296 /* SudokuUtils.swift */; };
 		07A35F4A21566C1500F1ABC5 /* ContinueTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A35F4921566C1500F1ABC5 /* ContinueTVC.swift */; };
 		07A35F4C215692C600F1ABC5 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A35F4B215692C600F1ABC5 /* SettingsTVC.swift */; };
+		07A35F4E215A13FD00F1ABC5 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A35F4D215A13FD00F1ABC5 /* AboutVC.swift */; };
 		07BF45132147B5C8002B4FCB /* QQWing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90009A2C31A2A4C0452F1A /* QQWing.swift */; };
 		07BF45152147D881002B4FCB /* NewGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BF45142147D881002B4FCB /* NewGameVC.swift */; };
 		AF900444C257C9CEDEBB1210 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AF9006719442D52D26B6393C /* README.md */; };
@@ -71,6 +72,7 @@
 		079EA5EC213D599C003B8296 /* SudokuUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuUtils.swift; sourceTree = "<group>"; };
 		07A35F4921566C1500F1ABC5 /* ContinueTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueTVC.swift; sourceTree = "<group>"; };
 		07A35F4B215692C600F1ABC5 /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
+		07A35F4D215A13FD00F1ABC5 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		07BF45142147D881002B4FCB /* NewGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameVC.swift; sourceTree = "<group>"; };
 		AF90009A2C31A2A4C0452F1A /* QQWing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QQWing.swift; sourceTree = "<group>"; };
 		AF9006719442D52D26B6393C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				079EA5A9212EC141003B8296 /* Assets.xcassets */,
 				079EA5AB212EC141003B8296 /* LaunchScreen.storyboard */,
 				079EA5A6212EC140003B8296 /* Main.storyboard */,
+				07A35F4D215A13FD00F1ABC5 /* AboutVC.swift */,
 				07A35F4B215692C600F1ABC5 /* SettingsTVC.swift */,
 				07A35F4921566C1500F1ABC5 /* ContinueTVC.swift */,
 				07BF45142147D881002B4FCB /* NewGameVC.swift */,
@@ -323,6 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A35F4E215A13FD00F1ABC5 /* AboutVC.swift in Sources */,
 				079EA5ED213D599C003B8296 /* SudokuUtils.swift in Sources */,
 				079EA5E421392FB4003B8296 /* UIButtonRounded.swift in Sources */,
 				079EA5E621395C8A003B8296 /* CustomColors.swift in Sources */,

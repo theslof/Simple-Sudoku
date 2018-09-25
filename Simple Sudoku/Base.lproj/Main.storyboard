@@ -624,11 +624,55 @@
         <!--About-->
         <scene sceneID="RWA-a6-mI8">
             <objects>
-                <viewController title="About" id="3WL-bB-BRp" sceneMemberID="viewController">
+                <viewController title="About" id="3WL-bB-BRp" customClass="AboutVC" customModule="Simple_Sudoku" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WhX-sO-ccO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simple Sudoku" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UK5-dh-2b1">
+                                <rect key="frame" x="16" y="80" width="288" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yen-AI-SAX">
+                                <rect key="frame" x="16" y="125" width="288" height="223.5"/>
+                                <string key="text">A sudoku app built by Jonas Theslöf as a student assignment in the iOS course at Newton vocational college in Gothenburg, Sweden.
+The app implements code from the QQWing sudoku generator/solver, written in Java by Stephen Ostermiller and ported to Swift by Jonas Theslöf.
+The app and code is distributed under GPL v2.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2r-1y-lrx">
+                                <rect key="frame" x="16" y="522" width="288" height="30"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Source code @ GitHub">
+                                            <attributes>
+                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="tappedGithubBtn:" destination="3WL-bB-BRp" eventType="touchUpInside" id="l6O-bX-WMx"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="UK5-dh-2b1" firstAttribute="leading" secondItem="uNT-j7-xho" secondAttribute="leading" constant="16" id="PWP-6F-2tg"/>
+                            <constraint firstItem="yen-AI-SAX" firstAttribute="leading" secondItem="uNT-j7-xho" secondAttribute="leading" constant="16" id="Xh2-ed-D7o"/>
+                            <constraint firstItem="yen-AI-SAX" firstAttribute="top" secondItem="UK5-dh-2b1" secondAttribute="bottom" constant="16" id="gmJ-5W-nIZ"/>
+                            <constraint firstItem="uNT-j7-xho" firstAttribute="bottom" secondItem="T2r-1y-lrx" secondAttribute="bottom" constant="16" id="hle-Nv-1Lc"/>
+                            <constraint firstItem="uNT-j7-xho" firstAttribute="trailing" secondItem="T2r-1y-lrx" secondAttribute="trailing" constant="16" id="j4A-aa-UaL"/>
+                            <constraint firstItem="uNT-j7-xho" firstAttribute="trailing" secondItem="yen-AI-SAX" secondAttribute="trailing" constant="16" id="lJ4-1c-L1A"/>
+                            <constraint firstItem="uNT-j7-xho" firstAttribute="trailing" secondItem="UK5-dh-2b1" secondAttribute="trailing" constant="16" id="nKa-vO-knq"/>
+                            <constraint firstItem="UK5-dh-2b1" firstAttribute="top" secondItem="uNT-j7-xho" secondAttribute="top" constant="16" id="srb-9H-U2Y"/>
+                            <constraint firstItem="T2r-1y-lrx" firstAttribute="leading" secondItem="uNT-j7-xho" secondAttribute="leading" constant="16" id="ykg-Wl-ka2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="uNT-j7-xho"/>
                     </view>
                 </viewController>
