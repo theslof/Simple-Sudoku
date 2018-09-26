@@ -10,6 +10,7 @@ import Foundation
 
 struct defaultsKeys {
     static let CURRENT_GAMES = "currentGames"
+    static let DARK_THEME = "darkTheme"
 }
 
 struct GameMetaData: Codable {
@@ -106,4 +107,14 @@ func clearAllSavedGames() {
     for game in loadGames() {
         clearSavedGameFor(seed: game)
     }
+}
+
+// Is Dark Theme selected?
+func isDarkTheme() -> Bool {
+    let defaults = UserDefaults.standard
+    return defaults.bool(forKey: defaultsKeys.DARK_THEME)
+}
+
+func setDarkTheme(_ set: Bool) {
+    UserDefaults.standard.set(set, forKey: defaultsKeys.DARK_THEME)
 }

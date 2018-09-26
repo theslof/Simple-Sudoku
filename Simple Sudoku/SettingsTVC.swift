@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsTVC: UITableViewController {
     @IBOutlet weak var deleteCell: UITableViewCell!
+    @IBOutlet weak var themeCell: UITableViewCell!
+    @IBOutlet weak var themeSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,7 @@ class SettingsTVC: UITableViewController {
         tableView.delegate = self
 
         tableView.tableFooterView = UIView()
+        themeSwitch.isOn = isDarkTheme()
     }
 
     // MARK: - Table view data source
@@ -29,14 +32,13 @@ class SettingsTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        if indexPath.row == 0 {
+            return themeCell
+        }
         return deleteCell
     }
 
@@ -52,4 +54,7 @@ class SettingsTVC: UITableViewController {
         self.present(ac, animated: true)
     }
     
+    @IBAction func themeSwitchTapped(_ sender: UISwitch) {
+        setDarkTheme(sender.isOn)
+    }
 }
