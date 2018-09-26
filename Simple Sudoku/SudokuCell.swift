@@ -15,12 +15,6 @@ class SudokuCell: UICollectionViewCell {
     
     //MARK: - Members
     
-    static let defaultColor: CGColor = UIColor.white.cgColor
-    static let lockedColor: CGColor = UIColor.sudokuLocked.cgColor
-    static let selectedColor: CGColor = UIColor.sudokuHighlight.cgColor
-    static let defaultTextColor: UIColor = UIColor.black
-    static let errorTextColor: UIColor = UIColor.sudokuError
-
     // Is the cell locked (ie. has a starting value and should not be changed by the player)
     private var locked: Bool = false {
         didSet {
@@ -45,29 +39,25 @@ class SudokuCell: UICollectionViewCell {
     }
 
     private func updateColor(animated: Bool) {
-        var newBgColor = SudokuCell.defaultColor
-        var newTextColor = SudokuCell.defaultTextColor
+        var newBgColor = Sudoku.colorBackground
+        var newTextColor = Sudoku.colorForeground
         if (locked) {
-            newBgColor = SudokuCell.lockedColor
+            newBgColor = Sudoku.colorLocked
         } else if (cell_selected) {
-            newBgColor = SudokuCell.selectedColor
-        } else {
-            newBgColor = SudokuCell.defaultColor
+            newBgColor = Sudoku.colorHighlight
         }
 
         if (cellHasError) {
-            newTextColor = SudokuCell.errorTextColor
-        } else {
-            newTextColor = SudokuCell.defaultTextColor
+            newTextColor = Sudoku.colorError
         }
 
         if animated {
             UIView.animate(withDuration: 0.20) {
-                self.layer.backgroundColor = newBgColor
+                self.layer.backgroundColor = newBgColor.cgColor
                 self.cellLabel.textColor = newTextColor
             }
         } else {
-            self.layer.backgroundColor = newBgColor
+            self.layer.backgroundColor = newBgColor.cgColor
             self.cellLabel.textColor = newTextColor
         }
     }

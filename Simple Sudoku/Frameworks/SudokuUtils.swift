@@ -243,13 +243,6 @@ class Sudoku: Codable {
     struct Error {
         let first: Int
         let second: Int
-        let type: ErrorType
-
-        enum ErrorType {
-            case row
-            case column
-            case section
-        }
     }
 
     /// Returns a list of Errors in the sudoku
@@ -279,7 +272,15 @@ class Sudoku: Codable {
             return []
         })
 
-        return errors
+        var filteredErrors:[Sudoku.Error] = []
+
+        errors.forEach { error in
+            if !filteredErrors.contains(where: { e in error.first == e.first && error.second == e.second }) {
+                filteredErrors.append(error)
+            }
+        }
+
+        return filteredErrors
     }
 
     private func findConflictsIn(row i: Int) -> [Sudoku.Error] {
@@ -291,7 +292,7 @@ class Sudoku: Codable {
         for (a, b) in findConflictsIn(array: row) {
             errors.append(Error(
                     first: Sudoku.localToGlobal(row: i, offset: a),
-                    second: Sudoku.localToGlobal(row: i, offset: b), type: .row))
+                    second: Sudoku.localToGlobal(row: i, offset: b)))
         }
 
         return errors
@@ -310,7 +311,7 @@ class Sudoku: Codable {
         for (a, b) in findConflictsIn(array: col) {
             errors.append(Error(
                     first: Sudoku.localToGlobal(col: i, offset: a),
-                    second: Sudoku.localToGlobal(col: i, offset: b), type: .column))
+                    second: Sudoku.localToGlobal(col: i, offset: b)))
         }
 
         return errors
@@ -328,7 +329,7 @@ class Sudoku: Codable {
         for (a, b) in findConflictsIn(array: sec) {
             errors.append(Error(
                     first: Sudoku.localToGlobal(sec: i, offset: a),
-                    second: Sudoku.localToGlobal(sec: i, offset: b), type: .section))
+                    second: Sudoku.localToGlobal(sec: i, offset: b)))
         }
 
         return errors

@@ -99,7 +99,7 @@ class NewGameVC: UIViewController {
             } else {
                 self.sudoku = self.generatePuzzle(difficulty: self.difficulty, symmetry: self.symmetry)
             }
-            debugPrint("Generated a sudoku with seed: \(self.sudoku?.seed)")
+            debugPrint("Generated a sudoku with seed: \(self.sudoku!.seed)")
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "startGameSegue", sender: self)
                 self.outletIndicator.stopAnimating()

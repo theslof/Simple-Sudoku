@@ -304,14 +304,12 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="sudoku_board" translatesAutoresizingMaskIntoConstraints="NO" id="dO8-LH-JxX">
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3v-Hh-ngl" userLabel="Sudoku Grid" customClass="SudokuGridView" customModule="Simple_Sudoku" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="320" height="320"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" secondItem="dO8-LH-JxX" secondAttribute="width" multiplier="1:1" id="b69-gu-cLN"/>
-                                </constraints>
-                            </imageView>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Su3-UO-dWb">
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Su3-UO-dWb" customClass="ErrorView" customModule="Simple_Sudoku" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tW-Aw-J7r">
                                 <rect key="frame" x="0.0" y="384" width="320" height="184"/>
@@ -540,21 +538,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dO8-LH-JxX" firstAttribute="width" secondItem="uzE-ob-PIF" secondAttribute="width" id="0fc-ih-6xR"/>
                             <constraint firstItem="9O3-d0-SC6" firstAttribute="trailing" secondItem="0tW-Aw-J7r" secondAttribute="trailing" id="3f6-d4-6EI"/>
+                            <constraint firstItem="G3v-Hh-ngl" firstAttribute="top" secondItem="uzE-ob-PIF" secondAttribute="top" id="60v-0K-krO"/>
                             <constraint firstItem="0tW-Aw-J7r" firstAttribute="leading" secondItem="9O3-d0-SC6" secondAttribute="leading" id="623-yt-Wng"/>
-                            <constraint firstItem="Su3-UO-dWb" firstAttribute="leading" secondItem="dO8-LH-JxX" secondAttribute="leading" id="6SJ-Yg-OKt"/>
+                            <constraint firstItem="G3v-Hh-ngl" firstAttribute="trailing" secondItem="uzE-ob-PIF" secondAttribute="trailing" id="Gli-hW-0jp"/>
                             <constraint firstItem="uzE-ob-PIF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9O3-d0-SC6" secondAttribute="leading" id="J7g-gU-3DA"/>
                             <constraint firstItem="uzE-ob-PIF" firstAttribute="centerX" secondItem="EXh-6m-DbT" secondAttribute="centerX" id="S0R-FA-PoB"/>
-                            <constraint firstItem="dO8-LH-JxX" firstAttribute="top" secondItem="uzE-ob-PIF" secondAttribute="top" id="Xg2-Sj-Ila"/>
                             <constraint firstItem="uzE-ob-PIF" firstAttribute="bottom" secondItem="0tW-Aw-J7r" secondAttribute="top" id="Y7u-yB-xr2"/>
-                            <constraint firstItem="Su3-UO-dWb" firstAttribute="trailing" secondItem="dO8-LH-JxX" secondAttribute="trailing" id="das-ta-eIV"/>
-                            <constraint firstItem="Su3-UO-dWb" firstAttribute="bottom" secondItem="dO8-LH-JxX" secondAttribute="bottom" id="f7k-GE-4Mn"/>
+                            <constraint firstItem="G3v-Hh-ngl" firstAttribute="bottom" secondItem="uzE-ob-PIF" secondAttribute="bottom" id="cgN-u4-3FH"/>
                             <constraint firstItem="uzE-ob-PIF" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="9O3-d0-SC6" secondAttribute="trailing" id="rEO-eH-8Ux"/>
-                            <constraint firstItem="Su3-UO-dWb" firstAttribute="top" secondItem="dO8-LH-JxX" secondAttribute="top" id="ua4-t6-PBP"/>
                             <constraint firstItem="uzE-ob-PIF" firstAttribute="top" secondItem="9O3-d0-SC6" secondAttribute="top" id="viu-yr-12k"/>
                             <constraint firstItem="9O3-d0-SC6" firstAttribute="bottom" secondItem="0tW-Aw-J7r" secondAttribute="bottom" id="w35-de-7Dk"/>
-                            <constraint firstItem="dO8-LH-JxX" firstAttribute="leading" secondItem="uzE-ob-PIF" secondAttribute="leading" id="zQE-8d-wqf"/>
+                            <constraint firstItem="G3v-Hh-ngl" firstAttribute="leading" secondItem="uzE-ob-PIF" secondAttribute="leading" id="yME-lY-CKg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9O3-d0-SC6"/>
                     </view>
@@ -562,6 +557,7 @@
                         <outlet property="buttonUndo" destination="og4-O1-naH" id="kov-SX-WHk"/>
                         <outlet property="errorView" destination="Su3-UO-dWb" id="1Dw-AT-FNO"/>
                         <outlet property="gameBoardCV" destination="uzE-ob-PIF" id="KSd-aa-fqT"/>
+                        <outlet property="sudokuGrid" destination="G3v-Hh-ngl" id="Zu9-w9-Kaj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CJA-fh-Lxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -746,9 +742,6 @@ The app and code is distributed under GPL v2.</string>
             <point key="canvasLocation" x="218" y="33"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="sudoku_board" width="682" height="682"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RJi-X6-HZ0"/>
     </inferredMetricsTieBreakers>
