@@ -137,19 +137,16 @@
 				079EA5A9212EC141003B8296 /* Assets.xcassets */,
 				079EA5AB212EC141003B8296 /* LaunchScreen.storyboard */,
 				079EA5A6212EC140003B8296 /* Main.storyboard */,
-				07BE0CFE215B75FE0045DBCE /* ErrorView.swift */,
-				07A35F4D215A13FD00F1ABC5 /* AboutVC.swift */,
-				07A35F4B215692C600F1ABC5 /* SettingsTVC.swift */,
-				07A35F4921566C1500F1ABC5 /* ContinueTVC.swift */,
-				07BF45142147D881002B4FCB /* NewGameVC.swift */,
 				079EA5A2212EC140003B8296 /* AppDelegate.swift */,
+				07A35F4D215A13FD00F1ABC5 /* AboutVC.swift */,
+				07A35F4921566C1500F1ABC5 /* ContinueTVC.swift */,
+				079EA5D02137D3FA003B8296 /* GameBoardVC.swift */,
+				079EA5A4212EC140003B8296 /* MainVC.swift */,
+				07BF45142147D881002B4FCB /* NewGameVC.swift */,
+				07A35F4B215692C600F1ABC5 /* SettingsTVC.swift */,
 				079EA5E7213D54AD003B8296 /* Frameworks */,
 				079EA5E021392EF1003B8296 /* UI Components */,
 				079EA5D52137FE31003B8296 /* Data */,
-				079EA5A4212EC140003B8296 /* MainVC.swift */,
-				079EA5D22137D441003B8296 /* SudokuCell.swift */,
-				079EA5D02137D3FA003B8296 /* GameBoardVC.swift */,
-				07BE0CFC215B701C0045DBCE /* SudokuGridView.swift */,
 			);
 			path = "Simple Sudoku";
 			sourceTree = "<group>";
@@ -183,6 +180,9 @@
 		079EA5E021392EF1003B8296 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				07BE0CFE215B75FE0045DBCE /* ErrorView.swift */,
+				079EA5D22137D441003B8296 /* SudokuCell.swift */,
+				07BE0CFC215B701C0045DBCE /* SudokuGridView.swift */,
 				079EA5E321392FB4003B8296 /* UIButtonRounded.swift */,
 			);
 			path = "UI Components";

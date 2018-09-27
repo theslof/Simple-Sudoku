@@ -21,21 +21,17 @@ struct Globals {
 Sudoku puzzle as a swift class, complete with methods for manipulating the cell values.
 */
 class Sudoku: Codable {
-    private(set) var solutions: Int = 0
-    private(set) var guesses: Int = 0
     private(set) var seed: UInt64
     private(set) var difficulty: String = "Unknown"
     private(set) var symmetry: String = "None"
     var given: [Int]
     var solved: [Int]
     var history: [HistoryItem]
-    var solution: [Int]?
 
     // Helper arrays, speeds up solving drastically
     private var rows: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
     private var cols: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
     private var secs: [[Int]] = Array(repeating: Array(repeating: 0, count: Globals.ROW_SIZE), count: Globals.ROW_SIZE)
-    private var randomOrder: [Int] = Array(0..<Globals.BOARD_SIZE)
     static let rowIndices: [Int] = [ 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                      1, 1, 1, 1, 1, 1, 1, 1, 1,
                                      2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -101,12 +97,12 @@ class Sudoku: Codable {
     convenience init(qqwing: QQWing) {
         self.init(given: qqwing.getPuzzle())
         self.seed = qqwing.seed
-        switch qqwing.getDifficultyAsString() {
-        case "Easy":
+        switch qqwing.getDifficulty() {
+        case .EASY:
             self.difficulty = "Easy"
-        case "Intermediate":
+        case .INTERMEDIATE:
             self.difficulty = "Medium"
-        case "Expert":
+        case .EXPERT:
             self.difficulty = "Hard"
         default:
             break

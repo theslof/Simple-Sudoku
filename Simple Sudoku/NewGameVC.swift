@@ -57,6 +57,7 @@ class NewGameVC: UIViewController {
 
     /// Generate a new puzzle from a selected difficulty and symmetry
     func generatePuzzle(difficulty: Difficulty, symmetry: Symmetry) -> Sudoku {
+        var count = 0
         var qq = QQWing()
         qq.setRecordHistory(true)
         repeat {
@@ -67,7 +68,9 @@ class NewGameVC: UIViewController {
             // so that we can always get the same puzzle by simply supplying the same seed.
             let _ = qq.generatePuzzleSymmetry(Symmetry.RANDOM)
             let _ = qq.solve()
+            count += 1
         } while (qq.getDifficulty() != difficulty && qq.symmetry != symmetry)
+        print("Generated \(count) puzzles before match")
         return Sudoku(qqwing: qq)
     }
 

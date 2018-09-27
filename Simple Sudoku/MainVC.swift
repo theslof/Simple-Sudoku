@@ -25,9 +25,6 @@ class MainVC: UIViewController {
         }
     }
 
-    ///Holds the data for the currently active game
-    private var currentGame: Sudoku?
-    
     //MARK: - Outlets
     
     @IBOutlet weak var outletNewGameButton: UIButton!
@@ -37,8 +34,6 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
         // Uncomment the following row to clear the saved game data at launch
         //clearAllSavedGames()
     }
@@ -46,13 +41,10 @@ class MainVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let games: [String] = loadGames()
-
-        if let seed = games.first, let currentGame: Sudoku = loadGameFor(seed: seed) {
-            // If we successfully loaded a game from memory...
+        if !loadGames().isEmpty {
+            // If we successfully loaded the saved game index from memory and there are saved games...
             debugPrint("Successfully loaded game data!")
             canContinue = true
-            self.currentGame = currentGame
         } else {
             //...or if we failed to do so:
             debugPrint("Failed to load save game data!")
@@ -63,13 +55,5 @@ class MainVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        default:
-            super.prepare(for: segue, sender: sender)
-        }
-
     }
 }
