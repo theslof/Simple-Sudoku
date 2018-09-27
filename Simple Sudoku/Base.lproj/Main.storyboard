@@ -587,7 +587,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dark Theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qp6-4m-nCI">
-                                                    <rect key="frame" x="20.000000000000007" y="11" width="93.666666666666686" height="22"/>
+                                                    <rect key="frame" x="20" y="11" width="329" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -605,6 +605,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Jb4-Lz-R5T" secondAttribute="trailing" constant="16" id="NlH-YY-7bj"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Qp6-4m-nCI" secondAttribute="bottom" id="P5B-C2-8IP"/>
                                                 <constraint firstItem="Qp6-4m-nCI" firstAttribute="top" secondItem="N5f-pG-Xct" secondAttribute="topMargin" id="XP0-1R-mHC"/>
+                                                <constraint firstItem="Jb4-Lz-R5T" firstAttribute="leading" secondItem="Qp6-4m-nCI" secondAttribute="trailing" id="vvT-Of-1hd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

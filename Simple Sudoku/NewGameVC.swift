@@ -36,7 +36,6 @@ class NewGameVC: UIViewController {
     }
     var sudoku: Sudoku?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -113,7 +112,7 @@ class NewGameVC: UIViewController {
     @IBAction func settingsTapped(_ sender: UIButton) {
         switch sender.tag {
         case 1:
-            // Difficulty
+            // Difficulty selection
             let ac: UIAlertController = UIAlertController(title: "Difficulty", message: "Select a difficulty:", preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "Easy", style: .default, handler: {_ in
                 self.difficulty = .EASY
@@ -130,7 +129,7 @@ class NewGameVC: UIViewController {
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(ac, animated: true)
         case 2:
-            // Symmetry
+            // Symmetry selection
             let ac: UIAlertController = UIAlertController(title: "Symmetry", message: "Select a symmetry:", preferredStyle: .actionSheet)
             ac.addAction(UIAlertAction(title: "Random", style: .default, handler: {_ in
                 self.symmetry = .RANDOM
